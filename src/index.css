@@ -13,17 +13,9 @@ body {
 }
 
 @keyframes flash-attention {
-  0%, 100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
-    background-color: #f8fafc;
-  }
-  50% {
-    transform: scale(1.04);
-    box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.35);
-    background-color: #dbeafe;
-  }
+  0%, 100% { background-color: #f8fafc; }
+  50%      { background-color: #fde68a; }
 }
 .animate-flash {
-  animation: flash-attention 0.55s ease-in-out 4;
+  animation: flash-attention 0.7s ease-in-out 2;
 }

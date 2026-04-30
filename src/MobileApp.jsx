@@ -372,7 +372,7 @@ export default function MobileApp() {
             <h3 className="text-sm font-black text-blue-900 mb-6 flex items-center gap-2 uppercase tracking-tight">
               <Compass className="w-5 h-5" /> THE SPIRITUAL REALMS
             </h3>
-            <div className="space-y-4 pb-12">
+            <div className="space-y-4">
               {lokasData.map(l => (
                 <div key={l.level} className="p-5 bg-white rounded-2xl flex gap-4 items-start border-2 border-slate-100 shadow-sm">
                   <span className="font-black text-blue-800 text-2xl">0{l.level}</span>
@@ -383,6 +383,14 @@ export default function MobileApp() {
                 </div>
               ))}
             </div>
+            <a
+              href="https://sites.google.com/view/nitidesh/creations/moksha-patam"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 mb-12 block w-full py-4 px-6 bg-blue-800 text-white text-center text-xs font-black rounded-2xl uppercase tracking-widest shadow-lg active:scale-95 transition-transform"
+            >
+              Learn More About Each Block →
+            </a>
           </div>
         </div>
 
