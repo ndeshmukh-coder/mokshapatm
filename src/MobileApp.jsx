@@ -223,9 +223,18 @@ export default function MobileApp() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [modalData, setModalData] = useState(null);
   const [win, setWin] = useState(false);
+  const [flashing, setFlashing] = useState(false);
+
+  const startReadingPause = () => {
+    setFlashing(true);
+    setTimeout(() => {
+      setFlashing(false);
+      setIsAnimating(false);
+    }, 3000);
+  };
 
   const handleRoll = async () => {
-    if (isAnimating || isRolling || win) return;
+    if (isAnimating || isRolling || win || flashing) return;
     setIsRolling(true);
 
     let roll = 1;
@@ -259,14 +268,18 @@ export default function MobileApp() {
         setModalData({ type: 'snake', title: snk.title, meaning: `Pulled back by ${snk.title}.`, to: snk.to });
       }, 200);
     } else {
-      setIsAnimating(false);
+      startReadingPause();
     }
   };
 
   const closeModal = () => {
     if (modalData?.to) setPlayerPosition(modalData.to);
     setModalData(null);
-    setIsAnimating(false);
+    if (modalData?.type === 'win') {
+      setIsAnimating(false);
+    } else {
+      startReadingPause();
+    }
   };
 
   const handleReset = () => {
@@ -274,6 +287,7 @@ export default function MobileApp() {
     setWin(false);
     setModalData(null);
     setIsAnimating(false);
+    setFlashing(false);
   };
 
   const currentSq = squaresData[playerPosition];
@@ -342,7 +356,7 @@ export default function MobileApp() {
             </div>
             <button
               onClick={handleRoll}
-              disabled={isAnimating || isRolling || win}
+              disabled={isAnimating || isRolling || win || flashing}
               className="px-10 py-4 bg-blue-800 text-white text-sm font-black rounded-2xl shadow-xl active:scale-95 disabled:opacity-30 transition-all uppercase tracking-widest"
             >
               ROLL
@@ -389,7 +403,7 @@ export default function MobileApp() {
       </main>
 
       <footer className="flex-none bg-white border-t-2 border-slate-100 p-4">
-        <div className="flex items-center gap-4 bg-slate-50 p-3 rounded-2xl border border-slate-200">
+        <div key={`${playerPosition}-${flashing}`} className={`flex items-center gap-4 bg-slate-50 p-3 rounded-2xl border border-slate-200 ${flashing ? 'animate-flash' : ''}`}>
           <div className="w-10 h-10 bg-blue-950 rounded-xl flex items-center justify-center font-black text-white text-sm shadow-md">
             {playerPosition}
           </div>

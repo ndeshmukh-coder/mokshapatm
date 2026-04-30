@@ -11,3 +11,19 @@ body {
   font-family: 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
+
+@keyframes flash-attention {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+    background-color: #f8fafc;
+  }
+  50% {
+    transform: scale(1.04);
+    box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.35);
+    background-color: #dbeafe;
+  }
+}
+.animate-flash {
+  animation: flash-attention 0.55s ease-in-out 4;
+}
