@@ -243,7 +243,7 @@ export default function MobileApp() {
     setTimeout(() => {
       setFlashing(false);
       setIsAnimating(false);
-    }, 3000);
+    }, 2000);
   };
 
   const settle = (finalPos) => {
@@ -374,10 +374,12 @@ export default function MobileApp() {
               const coords = getSquareCoords(playerPosition);
               return (
                 <div
-                  className="absolute w-6 h-6 -ml-3 -mt-3 transition-all duration-300 z-40 bg-blue-700 border-2 border-white rounded-full shadow-lg flex items-center justify-center text-[10px] text-white font-black"
-                  style={{ left: `${coords.x}%`, top: `${coords.y}%` }}
+                  className="absolute w-6 h-6 -ml-3 -mt-3 z-40 flex items-center justify-center"
+                  style={{ left: `${coords.x}%`, top: `${coords.y}%`, transition: 'left 300ms, top 300ms' }}
                 >
-                  P
+                  <div className="w-full h-full bg-blue-700 border-2 border-white rounded-full shadow-lg flex items-center justify-center text-[10px] text-white font-black animate-marker-pulse">
+                    P
+                  </div>
                 </div>
               );
             })()}
