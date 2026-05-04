@@ -8,7 +8,8 @@ import {
   ArrowDown,
   Sparkles,
   BookOpen,
-  ArrowLeft
+  ArrowLeft,
+  Crown
 } from 'lucide-react';
 
 // --- CONSTANTS & DATA ---
@@ -304,7 +305,7 @@ export default function MobileApp() {
       return;
     }
     if (data?.type === 'win') {
-      setIsAnimating(false);
+      handleReset();
       return;
     }
     if (data?.to) {
@@ -435,7 +436,7 @@ export default function MobileApp() {
           </div>
         </div>
 
-        {modalData && modalData.type !== 'loka' && (
+        {modalData && (modalData.type === 'ladder' || modalData.type === 'snake') && (
           <div className="fixed inset-0 bg-blue-950/90 backdrop-blur-md z-[60] flex items-center justify-center p-8">
             <div className="w-full max-w-xs bg-white rounded-[2.5rem] p-8 text-center shadow-2xl border-b-[8px] border-blue-800">
               <div className="mb-6 inline-block p-4 rounded-full bg-slate-50 border-2 border-slate-100">
@@ -445,6 +446,64 @@ export default function MobileApp() {
               <p className="text-sm text-slate-600 mb-8 px-2 leading-relaxed font-medium">"{modalData.meaning}"</p>
               <button onClick={closeModal} className="w-full py-4 bg-blue-800 text-white text-base font-black rounded-2xl uppercase tracking-widest shadow-xl active:scale-95 transition-transform">
                 OK
+              </button>
+            </div>
+          </div>
+        )}
+
+        {modalData && modalData.type === 'win' && (
+          <div className="fixed inset-0 z-[70] flex items-center justify-center p-5 bg-gradient-to-br from-amber-500 via-orange-600 to-rose-700 overflow-hidden">
+            {Array.from({ length: 18 }).map((_, i) => {
+              const left = (i * 53) % 100;
+              const top = (i * 37) % 100;
+              const delay = (i * 0.13) % 1.6;
+              const size = 8 + ((i * 5) % 18);
+              return (
+                <Sparkles
+                  key={i}
+                  className="absolute text-yellow-200 animate-ping"
+                  style={{
+                    left: `${left}%`,
+                    top: `${top}%`,
+                    width: `${size}px`,
+                    height: `${size}px`,
+                    animationDelay: `${delay}s`,
+                    animationDuration: '1.6s',
+                    opacity: 0.85,
+                  }}
+                />
+              );
+            })}
+
+            <div className="relative w-full max-w-xs bg-white rounded-[2.5rem] px-7 pt-9 pb-7 text-center shadow-[0_20px_80px_rgba(0,0,0,0.5)] border-[3px] border-amber-300">
+              <div className="absolute -top-9 left-1/2 -translate-x-1/2 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full p-4 shadow-2xl border-4 border-white animate-bounce">
+                <Crown className="w-9 h-9 text-white fill-white" />
+              </div>
+
+              <div className="mt-3 mb-5">
+                <div className="text-[11px] font-black text-amber-700 uppercase tracking-[0.3em] mb-2">मोक्ष • Moksha</div>
+                <div className="text-3xl font-black text-blue-950 tracking-tight leading-tight">ULTIMATE LIBERATION</div>
+                <div className="text-xs font-black text-slate-500 uppercase tracking-widest mt-2">You have attained</div>
+              </div>
+
+              <div className="relative bg-gradient-to-br from-amber-50 to-orange-50 rounded-3xl p-5 mb-5 border-2 border-amber-200">
+                <div className="text-5xl font-black text-amber-900 leading-none">{modalData.name}</div>
+                <div className="text-base font-black text-blue-950 uppercase tracking-widest mt-2">{modalData.translation}</div>
+                <div className="mt-3 inline-block bg-blue-950 text-amber-300 text-[10px] font-black uppercase tracking-[0.3em] px-3 py-1 rounded-full">
+                  Sakti Loka • Loka 8 of 8
+                </div>
+              </div>
+
+              <p className="text-[13px] text-slate-700 mb-2 px-1 leading-relaxed font-medium">"{modalData.meaning}"</p>
+              <p className="text-[11px] text-amber-700 font-black uppercase tracking-widest mb-6">
+                The soul has merged with the Source
+              </p>
+
+              <button
+                onClick={closeModal}
+                className="w-full py-4 bg-gradient-to-r from-amber-500 to-orange-600 text-white text-base font-black rounded-2xl uppercase tracking-widest shadow-2xl active:scale-95 transition-transform flex items-center justify-center gap-2"
+              >
+                <RotateCcw className="w-4 h-4" /> Play Again
               </button>
             </div>
           </div>
