@@ -5,7 +5,10 @@ import {
   Zap,
   RotateCcw,
   Compass,
-  ArrowDown
+  ArrowDown,
+  Sparkles,
+  BookOpen,
+  ArrowLeft
 } from 'lucide-react';
 
 // --- CONSTANTS & DATA ---
@@ -15,15 +18,18 @@ const TOTAL_SQUARES = ROWS * COLS;
 const WINNING_SQUARES = [67, 68, 69];
 
 const lokasData = [
-  { level: 8, name: "Sakti Loka", description: "The Plane of Energy. Pure consciousness." },
-  { level: 7, name: "Tapa Loka", description: "The Plane of Penance. Purification through truth." },
-  { level: 6, name: "Jana Loka", description: "The Plane of Generation. Cosmic balance." },
-  { level: 5, name: "Maha Loka", description: "The Plane of Greatness. Survival beyond destruction." },
-  { level: 4, name: "Swarga Loka", description: "The Celestial Plane. The abode of virtuous souls." },
-  { level: 3, name: "Bhuva Loka", description: "The Atmospheric Plane. Realm of the sun." },
-  { level: 2, name: "Bhu Loka", description: "The Physical Plane. The material world." },
-  { level: 1, name: "Patala Loka", description: "The Lower Realms. Basic survival." }
+  { level: 8, name: "Sakti Loka", sanskrit: "शक्ति लोक", description: "The Plane of Energy. Pure consciousness.", details: "The supreme realm of pure energy and unbounded consciousness. The final destination where the soul merges with the divine source — moksha, ultimate liberation. No duality, no separation, only being itself." },
+  { level: 7, name: "Tapa Loka", sanskrit: "तप लोक", description: "The Plane of Penance. Purification through truth.", details: "The realm of intense spiritual discipline and inner fire. Souls here undergo profound purification through devotion, meditation, and the surrender of ego. Truth is revealed only to those who have burned away illusion." },
+  { level: 6, name: "Jana Loka", sanskrit: "जन लोक", description: "The Plane of Generation. Cosmic balance.", details: "The plane of cosmic creation, dwelling of divine generators. A pure mental realm where universal patterns are born and the creative wisdom of the cosmos flows freely. Mind here is unclouded and infinitely fertile." },
+  { level: 5, name: "Maha Loka", sanskrit: "महा लोक", description: "The Plane of Greatness. Survival beyond destruction.", details: "The plane of greatness, the abode of liberated sages. This realm survives the cyclical destruction of the lower worlds. Here consciousness expands beyond individual identity and the soul recognizes its kinship with all that is." },
+  { level: 4, name: "Swarga Loka", sanskrit: "स्वर्ग लोक", description: "The Celestial Plane. The abode of virtuous souls.", details: "The celestial paradise where virtuous souls enjoy the fruits of their good deeds. A heaven of pleasure, beauty, and divine company — yet temporary, for once the merit is exhausted, the soul must continue its journey." },
+  { level: 3, name: "Bhuva Loka", sanskrit: "भुव लोक", description: "The Atmospheric Plane. Realm of the sun.", details: "The atmospheric realm between earth and heaven. Home to subtle beings and the energetic space where intentions and thoughts begin to take form. The bridge between the dense material and the luminous celestial." },
+  { level: 2, name: "Bhu Loka", sanskrit: "भू लोक", description: "The Physical Plane. The material world.", details: "The Earth plane where most human life unfolds. The realm of physical experience, sensory engagement, and the foundation for spiritual growth. Here every action plants a seed of karma that shapes the soul's onward journey." },
+  { level: 1, name: "Patala Loka", sanskrit: "पाताल लोक", description: "The Lower Realms. Basic survival.", details: "The lower realms representing primal instincts, basic survival, and material attachment. Souls here are bound by ignorance and karma, working through fundamental lessons before they can rise toward the higher worlds." }
 ];
+
+const getLokaLevel = (squareNum) => Math.floor((squareNum - 1) / COLS) + 1;
+const getLoka = (squareNum) => lokasData.find(l => l.level === getLokaLevel(squareNum));
 
 const squaresData = {
   1: { name: 'जन्म', translation: 'Birth', meaning: 'The start of your journey.' },
@@ -224,6 +230,9 @@ export default function MobileApp() {
   const [modalData, setModalData] = useState(null);
   const [win, setWin] = useState(false);
   const [flashing, setFlashing] = useState(false);
+  const [highestLokaLevel, setHighestLokaLevel] = useState(1);
+  const [celebratingRow, setCelebratingRow] = useState(null);
+  const [showLokaDetails, setShowLokaDetails] = useState(false);
 
   const startReadingPause = () => {
     setFlashing(true);
@@ -231,6 +240,19 @@ export default function MobileApp() {
       setFlashing(false);
       setIsAnimating(false);
     }, 3000);
+  };
+
+  const settle = (finalPos) => {
+    const newLevel = getLokaLevel(finalPos);
+    if (newLevel > highestLokaLevel) {
+      setHighestLokaLevel(newLevel);
+      const loka = getLoka(finalPos);
+      setCelebratingRow(newLevel - 1);
+      setShowLokaDetails(false);
+      setModalData({ type: 'loka', ...loka });
+    } else {
+      startReadingPause();
+    }
   };
 
   const handleRoll = async () => {
@@ -268,15 +290,26 @@ export default function MobileApp() {
         setModalData({ type: 'snake', title: snk.title, meaning: `Pulled back by ${snk.title}.`, to: snk.to });
       }, 200);
     } else {
-      startReadingPause();
+      settle(target);
     }
   };
 
   const closeModal = () => {
-    if (modalData?.to) setPlayerPosition(modalData.to);
+    const data = modalData;
     setModalData(null);
-    if (modalData?.type === 'win') {
+    if (data?.type === 'loka') {
+      setCelebratingRow(null);
+      setShowLokaDetails(false);
+      startReadingPause();
+      return;
+    }
+    if (data?.type === 'win') {
       setIsAnimating(false);
+      return;
+    }
+    if (data?.to) {
+      setPlayerPosition(data.to);
+      settle(data.to);
     } else {
       startReadingPause();
     }
@@ -288,6 +321,9 @@ export default function MobileApp() {
     setModalData(null);
     setIsAnimating(false);
     setFlashing(false);
+    setHighestLokaLevel(1);
+    setCelebratingRow(null);
+    setShowLokaDetails(false);
   };
 
   const currentSq = squaresData[playerPosition];
@@ -312,8 +348,13 @@ export default function MobileApp() {
                 const r = ROWS - 1 - Math.floor(idx / COLS);
                 const c = Math.floor(idx / COLS) % 2 === 0 ? (COLS - 1 - (idx % COLS)) : (idx % COLS);
                 const num = r * COLS + c + 1;
+                const isCelebrating = celebratingRow !== null && r === celebratingRow;
                 return (
-                  <div key={num} style={{ backgroundColor: getCellColor(num) }} className="border-[0.5px] border-slate-100 flex items-center justify-center">
+                  <div
+                    key={num}
+                    style={{ backgroundColor: isCelebrating ? '#fde68a' : getCellColor(num) }}
+                    className={`border-[0.5px] border-slate-100 flex items-center justify-center ${isCelebrating ? 'animate-pulse' : ''}`}
+                  >
                     <span className={`text-[9px] font-black ${WINNING_SQUARES.includes(num) ? 'text-amber-700' : 'text-slate-400'}`}>{num}</span>
                   </div>
                 );
@@ -394,7 +435,7 @@ export default function MobileApp() {
           </div>
         </div>
 
-        {modalData && (
+        {modalData && modalData.type !== 'loka' && (
           <div className="fixed inset-0 bg-blue-950/90 backdrop-blur-md z-[60] flex items-center justify-center p-8">
             <div className="w-full max-w-xs bg-white rounded-[2.5rem] p-8 text-center shadow-2xl border-b-[8px] border-blue-800">
               <div className="mb-6 inline-block p-4 rounded-full bg-slate-50 border-2 border-slate-100">
@@ -405,6 +446,74 @@ export default function MobileApp() {
               <button onClick={closeModal} className="w-full py-4 bg-blue-800 text-white text-base font-black rounded-2xl uppercase tracking-widest shadow-xl active:scale-95 transition-transform">
                 OK
               </button>
+            </div>
+          </div>
+        )}
+
+        {modalData && modalData.type === 'loka' && (
+          <div className="fixed inset-0 bg-gradient-to-br from-amber-950/95 to-blue-950/95 backdrop-blur-md z-[60] flex items-center justify-center p-6">
+            <div className="w-full max-w-xs bg-white rounded-[2.5rem] p-7 text-center shadow-2xl border-[3px] border-amber-400 relative overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-400" />
+              <Sparkles className="absolute top-4 left-4 w-5 h-5 text-amber-400 animate-pulse" />
+              <Sparkles className="absolute top-6 right-5 w-4 h-4 text-amber-300 animate-pulse" style={{ animationDelay: '0.3s' }} />
+              <Sparkles className="absolute bottom-24 left-6 w-3 h-3 text-amber-400 animate-pulse" style={{ animationDelay: '0.6s' }} />
+
+              {!showLokaDetails ? (
+                <>
+                  <div className="mt-2 mb-3">
+                    <div className="text-[10px] font-black text-amber-700 uppercase tracking-[0.25em]">You have reached</div>
+                    <div className="text-[11px] font-black text-slate-400 uppercase tracking-widest mt-1">Loka {modalData.level} of 8</div>
+                  </div>
+                  <div className="mb-4">
+                    <div className="text-3xl font-black text-blue-950 tracking-tight">{modalData.name}</div>
+                    <div className="text-base font-bold text-amber-600 mt-1">{modalData.sanskrit}</div>
+                  </div>
+                  <div className="flex justify-center gap-1 mb-5">
+                    {Array.from({ length: 8 }).map((_, i) => (
+                      <div
+                        key={i}
+                        className={`h-1.5 rounded-full transition-all ${i < modalData.level ? 'bg-amber-400 w-3' : 'bg-slate-200 w-2'}`}
+                      />
+                    ))}
+                  </div>
+                  <p className="text-sm text-slate-600 mb-7 px-2 leading-relaxed font-medium">{modalData.description}</p>
+                  <div className="space-y-2.5">
+                    <button
+                      onClick={() => setShowLokaDetails(true)}
+                      className="w-full py-3.5 bg-amber-500 text-white text-sm font-black rounded-2xl uppercase tracking-widest shadow-lg active:scale-95 transition-transform flex items-center justify-center gap-2"
+                    >
+                      <BookOpen className="w-4 h-4" /> More Details
+                    </button>
+                    <button
+                      onClick={closeModal}
+                      className="w-full py-3.5 bg-blue-800 text-white text-sm font-black rounded-2xl uppercase tracking-widest shadow-lg active:scale-95 transition-transform"
+                    >
+                      OK
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <button
+                    onClick={() => setShowLokaDetails(false)}
+                    className="absolute top-4 left-4 p-2 text-slate-400 active:scale-90"
+                  >
+                    <ArrowLeft className="w-4 h-4" />
+                  </button>
+                  <div className="mt-6 mb-4">
+                    <div className="text-[10px] font-black text-amber-700 uppercase tracking-[0.25em] mb-2">Loka {modalData.level}</div>
+                    <div className="text-2xl font-black text-blue-950 tracking-tight">{modalData.name}</div>
+                    <div className="text-sm font-bold text-amber-600 mt-1">{modalData.sanskrit}</div>
+                  </div>
+                  <p className="text-[13px] text-slate-700 mb-7 px-1 leading-relaxed font-medium text-left">{modalData.details}</p>
+                  <button
+                    onClick={closeModal}
+                    className="w-full py-3.5 bg-blue-800 text-white text-sm font-black rounded-2xl uppercase tracking-widest shadow-lg active:scale-95 transition-transform"
+                  >
+                    Continue Journey
+                  </button>
+                </>
+              )}
             </div>
           </div>
         )}
