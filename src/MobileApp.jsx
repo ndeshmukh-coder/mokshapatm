@@ -402,7 +402,7 @@ export default function MobileApp() {
             <button
               onClick={handleRoll}
               disabled={isAnimating || isRolling || win || flashing}
-              className="px-10 py-4 bg-blue-800 text-white text-sm font-black rounded-2xl shadow-xl active:scale-95 disabled:opacity-30 transition-all uppercase tracking-widest"
+              className={`px-10 py-4 text-white text-sm font-black rounded-2xl shadow-xl active:scale-95 disabled:opacity-30 uppercase tracking-widest ${(!isAnimating && !isRolling && !win && !flashing) ? 'animate-pulse-attract' : 'bg-blue-800 transition-all'}`}
             >
               ROLL
             </button>
