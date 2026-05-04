@@ -19,3 +19,13 @@ body {
 .animate-flash {
   animation: flash-attention 0.7s ease-in-out 2;
 }
+
+@keyframes bleed-drip {
+  0%   { transform: translateY(-110%) scaleY(0.6); opacity: 0; }
+  20%  { opacity: 1; }
+  100% { transform: translateY(0) scaleY(1); opacity: 1; }
+}
+.animate-drip {
+  transform-origin: top center;
+  animation: bleed-drip 2.4s ease-in infinite;
+}

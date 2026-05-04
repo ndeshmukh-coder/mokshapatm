@@ -9,7 +9,10 @@ import {
   Sparkles,
   BookOpen,
   ArrowLeft,
-  Crown
+  Crown,
+  Skull,
+  TrendingUp,
+  TrendingDown
 } from 'lucide-react';
 
 // --- CONSTANTS & DATA ---
@@ -108,26 +111,26 @@ const squaresData = {
 };
 
 const ladders = {
-  9: { to: 23, title: 'तप (Austerity)' },
-  17: { to: 69, title: 'दया (Compassion)' },
-  27: { to: 41, title: 'परमार्थ (Altruism)' },
-  28: { to: 50, title: 'सुधर्म (Right Conduct)' },
-  37: { to: 66, title: 'ज्ञान (Wisdom)' },
-  46: { to: 62, title: 'विवेक (Discrimination)' },
-  54: { to: 68, title: 'भक्ती (Devotion)' },
-  60: { to: 67, title: 'सुबुद्धी (Right Intellect)' }
+  9:  { to: 23, sanskrit: 'तप', name: 'Austerity',          signifies: 'Self-discipline and inner fire elevate the soul straight to the celestial reward.' },
+  17: { to: 69, sanskrit: 'दया', name: 'Compassion',         signifies: 'Pure empathy for all beings carries you directly into the embrace of the Creator.' },
+  27: { to: 41, sanskrit: 'परमार्थ', name: 'Altruism',       signifies: 'Selfless service to others raises consciousness to the plane of true humanity.' },
+  28: { to: 50, sanskrit: 'सुधर्म', name: 'Right Conduct',   signifies: 'Living in line with your true duty accelerates the spiritual journey.' },
+  37: { to: 66, sanskrit: 'ज्ञान', name: 'Wisdom',           signifies: 'Knowledge of the true Self leads straight to eternal bliss.' },
+  46: { to: 62, sanskrit: 'विवेक', name: 'Discrimination',   signifies: 'Choosing truth over illusion, again and again, brings genuine and lasting happiness.' },
+  54: { to: 68, sanskrit: 'भक्ती', name: 'Devotion',         signifies: 'Total love and surrender connect the seeker directly to the Supreme.' },
+  60: { to: 67, sanskrit: 'सुबुद्धी', name: 'Right Intellect', signifies: 'A purified mind, used in service of the good, leads at once to pure awareness.' }
 };
 
 const snakes = {
-  16: { to: 4, title: 'मत्सर (Envy)', color: '#b91c1c' },
-  24: { to: 7, title: 'कुसंगती (Bad Company)', color: '#6d28d9' },
-  29: { to: 6, title: 'अधर्म (Unrighteousness)', color: '#c2410c' },
-  44: { to: 22, title: 'अविद्या (Ignorance)', color: '#0369a1' },
-  52: { to: 35, title: 'हिंसा (Violence)', color: '#047857' },
-  55: { to: 3, title: 'अहंकार (Ego)', color: '#be185d' },
-  61: { to: 13, title: 'दुर्बुद्धी (Wrong Intellect)', color: '#4338ca' },
-  63: { to: 2, title: 'तामस (Inertia)', color: '#7e22ce' },
-  72: { to: 51, title: 'तमस (Darkness)', color: '#111827' }
+  16: { to: 4,  sanskrit: 'मत्सर्य',   name: 'Envy',              color: '#b91c1c', signifies: 'Resenting another\'s joy poisons your own progress and drags you back into greed.' },
+  24: { to: 7,  sanskrit: 'कुसंगती',   name: 'Bad Company',       color: '#6d28d9', signifies: 'Negative influences erode your virtue and pull you back into pride and ego.' },
+  29: { to: 6,  sanskrit: 'अधर्म',     name: 'Unrighteousness',   color: '#c2410c', signifies: 'Acting against truth and dharma plunges the soul deep into delusion.' },
+  44: { to: 22, sanskrit: 'अविद्या',   name: 'Ignorance',         color: '#0369a1', signifies: 'Refusing to see reality knocks you back to relearn the lessons of dharma.' },
+  52: { to: 35, sanskrit: 'हिंसा',     name: 'Violence',          color: '#047857', signifies: 'Harming others cycles back as your own suffering — a fall into purgatory.' },
+  55: { to: 3,  sanskrit: 'अहंकार',   name: 'Ego',                color: '#be185d', signifies: 'The false sense of "I" hurls the soul into the consuming fires of anger.' },
+  61: { to: 13, sanskrit: 'दुर्बुद्धी', name: 'Wrong Intellect',  color: '#4338ca', signifies: 'Cleverness used to harm scatters your mind back into idle fantasy.' },
+  63: { to: 2,  sanskrit: 'तामस',     name: 'Inertia',            color: '#7e22ce', signifies: 'Stagnation and laziness drag the soul back into the grip of illusion.' },
+  72: { to: 51, sanskrit: 'तमस',     name: 'Darkness',           color: '#111827', signifies: 'Total ignorance is the longest fall — all the way back to bare material existence.' }
 };
 
 const getSquareCoords = (num, verticalOffset = 'center') => {
@@ -283,12 +286,12 @@ export default function MobileApp() {
     } else if (ladders[target]) {
       const lad = ladders[target];
       setTimeout(() => {
-        setModalData({ type: 'ladder', title: lad.title, meaning: squaresData[target].meaning, to: lad.to });
+        setModalData({ type: 'ladder', from: target, ...lad });
       }, 200);
     } else if (snakes[target]) {
       const snk = snakes[target];
       setTimeout(() => {
-        setModalData({ type: 'snake', title: snk.title, meaning: `Pulled back by ${snk.title}.`, to: snk.to });
+        setModalData({ type: 'snake', from: target, ...snk });
       }, 200);
     } else {
       settle(target);
@@ -436,16 +439,121 @@ export default function MobileApp() {
           </div>
         </div>
 
-        {modalData && (modalData.type === 'ladder' || modalData.type === 'snake') && (
-          <div className="fixed inset-0 bg-blue-950/90 backdrop-blur-md z-[60] flex items-center justify-center p-8">
-            <div className="w-full max-w-xs bg-white rounded-[2.5rem] p-8 text-center shadow-2xl border-b-[8px] border-blue-800">
-              <div className="mb-6 inline-block p-4 rounded-full bg-slate-50 border-2 border-slate-100">
-                {modalData.type === 'ladder' ? <Zap className="w-10 h-10 text-green-600 fill-current" /> : <ShieldCheck className="w-10 h-10 text-red-600 fill-current" />}
+        {modalData && modalData.type === 'ladder' && (
+          <div className="fixed inset-0 z-[60] flex items-center justify-center p-5 bg-gradient-to-br from-emerald-600 via-sky-600 to-amber-500 overflow-hidden">
+            {Array.from({ length: 14 }).map((_, i) => (
+              <Sparkles
+                key={i}
+                className="absolute text-yellow-200 animate-pulse"
+                style={{
+                  left: `${(i * 41) % 100}%`,
+                  top: `${(i * 29) % 100}%`,
+                  width: `${10 + (i * 3) % 14}px`,
+                  height: `${10 + (i * 3) % 14}px`,
+                  animationDelay: `${(i * 0.15) % 1.4}s`,
+                  opacity: 0.85,
+                }}
+              />
+            ))}
+
+            <div className="relative w-full max-w-xs bg-white rounded-[2.5rem] px-7 pt-9 pb-6 text-center shadow-[0_20px_80px_rgba(0,0,0,0.4)] border-[3px] border-emerald-300">
+              <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-gradient-to-br from-emerald-500 to-sky-600 rounded-full p-3.5 shadow-2xl border-4 border-white animate-bounce">
+                <TrendingUp className="w-8 h-8 text-white" strokeWidth={3} />
               </div>
-              <h2 className="text-2xl font-black text-slate-900 mb-2 uppercase tracking-tight">{modalData.title || modalData.name}</h2>
-              <p className="text-sm text-slate-600 mb-8 px-2 leading-relaxed font-medium">"{modalData.meaning}"</p>
-              <button onClick={closeModal} className="w-full py-4 bg-blue-800 text-white text-base font-black rounded-2xl uppercase tracking-widest shadow-xl active:scale-95 transition-transform">
-                OK
+
+              <div className="mt-3 mb-4">
+                <div className="text-[10px] font-black text-emerald-700 uppercase tracking-[0.3em]">A Ladder Appears</div>
+                <div className="text-xs font-black text-slate-500 uppercase tracking-widest mt-1">You have climbed</div>
+              </div>
+
+              <div className="mb-4">
+                <div className="text-3xl font-black text-emerald-900 leading-none">{modalData.sanskrit}</div>
+                <div className="text-base font-black text-blue-950 uppercase tracking-widest mt-2">{modalData.name}</div>
+              </div>
+
+              <div className="bg-gradient-to-br from-emerald-50 to-sky-50 border-2 border-emerald-200 rounded-2xl px-3 py-2 mb-4 inline-flex items-center gap-2">
+                <span className="text-[10px] font-black text-emerald-700 uppercase tracking-widest">Lifted</span>
+                <span className="text-xs font-black text-emerald-900">{modalData.from}</span>
+                <TrendingUp className="w-3 h-3 text-emerald-700" strokeWidth={3} />
+                <span className="text-xs font-black text-emerald-900">{modalData.to}</span>
+              </div>
+
+              <p className="text-[13px] text-slate-700 mb-6 px-1 leading-relaxed font-medium">"{modalData.signifies}"</p>
+
+              <button
+                onClick={closeModal}
+                className="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-sky-600 text-white text-sm font-black rounded-2xl uppercase tracking-widest shadow-xl active:scale-95 transition-transform"
+              >
+                Rise & Continue
+              </button>
+            </div>
+          </div>
+        )}
+
+        {modalData && modalData.type === 'snake' && (
+          <div className="fixed inset-0 z-[60] flex items-center justify-center p-5 bg-gradient-to-br from-red-950 via-rose-950 to-black overflow-hidden">
+            {Array.from({ length: 9 }).map((_, i) => (
+              <div
+                key={i}
+                className="absolute top-0 rounded-b-full animate-drip"
+                style={{
+                  left: `${4 + i * 11}%`,
+                  width: `${4 + (i % 3) * 2}px`,
+                  height: `${22 + (i * 13) % 38}%`,
+                  background: 'linear-gradient(to bottom, #b91c1c 0%, #7f1d1d 60%, transparent 100%)',
+                  animationDelay: `${(i * 0.27) % 1.6}s`,
+                  animationDuration: `${2.4 + (i % 3) * 0.4}s`,
+                  opacity: 0.85,
+                }}
+              />
+            ))}
+
+            <div
+              className="relative w-full max-w-xs rounded-[2.5rem] px-7 pt-10 pb-6 text-center shadow-[0_20px_80px_rgba(127,29,29,0.7)] border-[3px]"
+              style={{
+                background: 'linear-gradient(to bottom right, #fef2f2, #ffe4e6)',
+                borderColor: modalData.color,
+              }}
+            >
+              <div
+                className="absolute -top-8 left-1/2 -translate-x-1/2 rounded-full p-3.5 shadow-2xl border-4 border-white"
+                style={{ backgroundColor: modalData.color }}
+              >
+                <Skull className="w-8 h-8 text-white" strokeWidth={2.5} />
+              </div>
+
+              <div className="mt-2 mb-4">
+                <div className="text-[10px] font-black uppercase tracking-[0.3em]" style={{ color: modalData.color }}>
+                  The Serpent Strikes
+                </div>
+                <div className="text-xs font-black text-slate-500 uppercase tracking-widest mt-1">Bitten by</div>
+              </div>
+
+              <div className="mb-4">
+                <div className="text-3xl font-black text-red-950 leading-none">{modalData.sanskrit}</div>
+                <div className="text-base font-black text-blue-950 uppercase tracking-widest mt-2">{modalData.name}</div>
+              </div>
+
+              <div
+                className="border-2 rounded-2xl px-3 py-2 mb-4 inline-flex items-center gap-2"
+                style={{ backgroundColor: '#fee2e2', borderColor: '#fca5a5' }}
+              >
+                <span className="text-[10px] font-black uppercase tracking-widest" style={{ color: modalData.color }}>Pulled Down</span>
+                <span className="text-xs font-black text-red-950">{modalData.from}</span>
+                <TrendingDown className="w-3 h-3" style={{ color: modalData.color }} strokeWidth={3} />
+                <span className="text-xs font-black text-red-950">{modalData.to}</span>
+              </div>
+
+              <p className="text-[13px] text-slate-700 mb-6 px-1 leading-relaxed font-medium">"{modalData.signifies}"</p>
+
+              <button
+                onClick={closeModal}
+                className="w-full py-3.5 text-white text-sm font-black rounded-2xl uppercase tracking-widest shadow-xl active:scale-95 transition-transform"
+                style={{
+                  background: `linear-gradient(to right, ${modalData.color}, #7f1d1d)`,
+                }}
+              >
+                Endure & Continue
               </button>
             </div>
           </div>
