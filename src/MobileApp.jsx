@@ -39,6 +39,18 @@ const lokasData = [
 const getLokaLevel = (squareNum) => Math.floor((squareNum - 1) / COLS) + 1;
 const getLoka = (squareNum) => lokasData.find(l => l.level === getLokaLevel(squareNum));
 
+// Row tint per loka — keyed by row index from bottom (0 = loka 1)
+const lokaRowTints = {
+  0: '#fde6c8', // brown   — Bhu-loka
+  1: '#fecaca', // red     — Bhuva-loka
+  2: '#fed7aa', // orange  — Svarga-loka
+  3: '#fef08a', // yellow  — Mahaloka
+  4: '#bbf7d0', // green   — Janaloka
+  5: '#bfdbfe', // blue    — Tapa-loka
+  6: '#c7d2fe', // indigo  — Satya-loka
+  7: '#ddd6fe', // violet  — Brahman-loka
+};
+
 const squaresData = {
   1: { name: 'जन्म', translation: 'Birth', meaning: 'The start of your journey.' },
   2: { name: 'माया', translation: 'Illusion', meaning: 'The energy that obscures truth.' },
@@ -355,21 +367,30 @@ export default function MobileApp() {
         <div className="p-4 flex flex-col min-h-full">
           <div className="relative w-full max-w-sm mx-auto aspect-square border-[4px] border-blue-950 rounded-2xl overflow-hidden bg-white shadow-2xl">
             <div className="absolute inset-0 grid grid-cols-9 grid-rows-8">
-              {Array.from({ length: ROWS * COLS }, (_, idx) => {
-                const r = ROWS - 1 - Math.floor(idx / COLS);
-                const c = Math.floor(idx / COLS) % 2 === 0 ? (COLS - 1 - (idx % COLS)) : (idx % COLS);
-                const num = r * COLS + c + 1;
-                const isCelebrating = celebratingRow !== null && r === celebratingRow;
-                return (
-                  <div
-                    key={num}
-                    style={{ backgroundColor: isCelebrating ? '#fde68a' : getCellColor(num) }}
-                    className={`border-[0.5px] border-slate-100 flex items-center justify-center ${isCelebrating ? 'animate-pulse' : ''}`}
-                  >
-                    <span className={`text-[9px] font-black ${WINNING_SQUARES.includes(num) ? 'text-amber-700' : 'text-slate-400'}`}>{num}</span>
-                  </div>
-                );
-              })}
+              {(() => {
+                const playerRow = Math.floor((playerPosition - 1) / COLS);
+                return Array.from({ length: ROWS * COLS }, (_, idx) => {
+                  const r = ROWS - 1 - Math.floor(idx / COLS);
+                  const c = Math.floor(idx / COLS) % 2 === 0 ? (COLS - 1 - (idx % COLS)) : (idx % COLS);
+                  const num = r * COLS + c + 1;
+                  const isPlayerRow = r === playerRow;
+                  const isCelebrating = celebratingRow !== null && r === celebratingRow;
+                  const bg = WINNING_SQUARES.includes(num)
+                    ? '#fef3c7'
+                    : isPlayerRow
+                      ? lokaRowTints[r]
+                      : getCellColor(num);
+                  return (
+                    <div
+                      key={num}
+                      style={{ backgroundColor: bg, transition: 'background-color 300ms' }}
+                      className={`border-[0.5px] border-slate-100 flex items-center justify-center ${isCelebrating ? 'animate-pulse' : ''}`}
+                    >
+                      <span className={`text-[9px] font-black ${WINNING_SQUARES.includes(num) ? 'text-amber-700' : 'text-slate-400'}`}>{num}</span>
+                    </div>
+                  );
+                });
+              })()}
             </div>
 
             <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100">
