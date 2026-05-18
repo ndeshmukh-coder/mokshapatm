@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "node scripts/build-square-details.mjs",
+    "prebuild": "node scripts/build-square-details.mjs && node scripts/build-loka-details.mjs",
     "build": "vite build",
     "preview": "vite preview"
   },

@@ -17,6 +17,7 @@ import {
   Info
 } from 'lucide-react';
 import { squareDetails } from './squareDetails.js';
+import { lokaDetails } from './lokaDetails.js';
 
 // --- CONSTANTS & DATA ---
 const ROWS = 8;
@@ -304,7 +305,7 @@ export default function MobileApp() {
   const closeModal = () => {
     const data = modalData;
     setModalData(null);
-    if (data?.type === 'detail') {
+    if (data?.type === 'detail' || data?.type === 'lokaDetail') {
       return;
     }
     if (data?.type === 'loka') {
@@ -443,13 +444,20 @@ export default function MobileApp() {
                     className="p-5 rounded-2xl flex gap-4 items-start shadow-sm border-l-[6px] border-y-2 border-r-2 border-slate-100"
                     style={{ backgroundColor: palette.bg, borderLeftColor: palette.border }}
                   >
-                    <span className="font-black text-2xl" style={{ color: palette.num }}>0{l.level}</span>
-                    <div>
+                    <span className="font-black text-2xl flex-none" style={{ color: palette.num }}>0{l.level}</span>
+                    <div className="flex-1 min-w-0">
                       <div className="flex items-baseline gap-2 flex-wrap">
                         <span className="text-[11px] font-black uppercase tracking-wide" style={{ color: palette.name }}>{l.name}</span>
                         <span className="text-[9px] font-bold text-slate-400">cells {l.cells}</span>
                       </div>
                       <div className="text-[10px] text-slate-600 leading-snug font-medium mt-1">{l.description}</div>
+                      <button
+                        onClick={() => setModalData({ type: 'lokaDetail', level: l.level })}
+                        className="mt-3 inline-flex items-center gap-1 px-3 py-1.5 text-white text-[9px] font-black rounded-lg uppercase tracking-widest shadow active:scale-95 transition-transform"
+                        style={{ backgroundColor: palette.border }}
+                      >
+                        <BookOpen className="w-3 h-3" strokeWidth={3} /> More
+                      </button>
                     </div>
                   </div>
                 );
@@ -621,6 +629,110 @@ export default function MobileApp() {
                   <button
                     onClick={closeModal}
                     className="w-full py-3.5 bg-blue-800 text-white text-sm font-black rounded-2xl uppercase tracking-widest shadow-xl active:scale-95 transition-transform"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          );
+        })()}
+
+        {modalData && modalData.type === 'lokaDetail' && (() => {
+          const d = lokaDetails[modalData.level];
+          const palette = {
+            8: { border: '#7c3aed', accent: '#6d28d9', tint: '#f5f3ff' },
+            7: { border: '#4f46e5', accent: '#4338ca', tint: '#eef2ff' },
+            6: { border: '#2563eb', accent: '#1d4ed8', tint: '#eff6ff' },
+            5: { border: '#16a34a', accent: '#15803d', tint: '#f0fdf4' },
+            4: { border: '#ca8a04', accent: '#a16207', tint: '#fefce8' },
+            3: { border: '#ea580c', accent: '#c2410c', tint: '#fff7ed' },
+            2: { border: '#dc2626', accent: '#b91c1c', tint: '#fef2f2' },
+            1: { border: '#78350f', accent: '#78350f', tint: '#fdf6e9' },
+          }[modalData.level];
+          if (!d) return null;
+          return (
+            <div className="fixed inset-0 z-[65] flex items-center justify-center p-4 bg-blue-950/90 backdrop-blur-md">
+              <div
+                className="relative w-full max-w-sm bg-white rounded-[2rem] shadow-2xl flex flex-col overflow-hidden border-[3px]"
+                style={{ borderColor: palette.border, maxHeight: '88vh' }}
+              >
+                <button
+                  onClick={closeModal}
+                  className="absolute top-4 right-4 z-10 p-1.5 rounded-full bg-slate-100 hover:bg-slate-200 active:scale-90 transition-transform"
+                  aria-label="Close"
+                >
+                  <X className="w-4 h-4 text-slate-600" strokeWidth={3} />
+                </button>
+
+                <div className="px-6 pt-6 pb-4 border-b" style={{ backgroundColor: palette.tint, borderColor: palette.border + '33' }}>
+                  <div className="text-[10px] font-black uppercase tracking-[0.25em]" style={{ color: palette.accent }}>
+                    Loka 0{d.num} · {d.cellsRange}
+                  </div>
+                  <div className="text-2xl font-black mt-1 leading-tight pr-8" style={{ color: palette.accent }}>{d.name}</div>
+                  <div className="text-base font-bold text-slate-600 mt-0.5">{d.sanskrit}</div>
+                </div>
+
+                <div className="flex-1 overflow-y-auto px-6 py-5 space-y-5 square-detail-body">
+                  <div>
+                    <div className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-400 mb-1.5">Essence</div>
+                    <p
+                      className="text-[13px] text-slate-700 leading-relaxed"
+                      dangerouslySetInnerHTML={{ __html: d.essence }}
+                    />
+                  </div>
+
+                  {d.theme && (
+                    <div>
+                      <div className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-400 mb-1.5">Theme</div>
+                      <p
+                        className="text-[13px] text-slate-700 leading-relaxed"
+                        dangerouslySetInnerHTML={{ __html: d.theme }}
+                      />
+                    </div>
+                  )}
+
+                  {d.keyCells && d.keyCells.length > 0 && (
+                    <div>
+                      <div className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-400 mb-2">Key Cells</div>
+                      <div className="flex flex-wrap gap-1.5">
+                        {d.keyCells.map(c => {
+                          const chipColor = c.kind === 'virtues' ? '#15803d' : c.kind === 'vices' ? '#b91c1c' : '#64748b';
+                          const chipBg = c.kind === 'virtues' ? '#f0fdf4' : c.kind === 'vices' ? '#fef2f2' : '#f1f5f9';
+                          return (
+                            <span
+                              key={c.n}
+                              className="inline-flex items-baseline gap-1 px-2 py-1 rounded-full text-[11px] font-medium border"
+                              style={{ borderColor: chipColor + '55', backgroundColor: chipBg, color: '#1e293b' }}
+                            >
+                              <span className="font-black text-[10px]" style={{ color: chipColor }}>{c.n}</span>
+                              <span className="italic">{c.name}</span>
+                              {c.label && (
+                                <span className="font-bold" style={{ color: chipColor }}>· {c.label}</span>
+                              )}
+                            </span>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+
+                  {d.wayOut && (
+                    <div>
+                      <div className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-400 mb-1.5">Way Out</div>
+                      <p
+                        className="text-[13px] text-slate-700 leading-relaxed"
+                        dangerouslySetInnerHTML={{ __html: d.wayOut }}
+                      />
+                    </div>
+                  )}
+                </div>
+
+                <div className="px-6 pb-5 pt-3 border-t border-slate-100">
+                  <button
+                    onClick={closeModal}
+                    className="w-full py-3.5 text-white text-sm font-black rounded-2xl uppercase tracking-widest shadow-xl active:scale-95 transition-transform"
+                    style={{ backgroundColor: palette.accent }}
                   >
                     Close
                   </button>
