@@ -12,8 +12,11 @@ import {
   Crown,
   Skull,
   TrendingUp,
-  TrendingDown
+  TrendingDown,
+  X,
+  Info
 } from 'lucide-react';
+import { squareDetails } from './squareDetails.js';
 
 // --- CONSTANTS & DATA ---
 const ROWS = 8;
@@ -301,6 +304,9 @@ export default function MobileApp() {
   const closeModal = () => {
     const data = modalData;
     setModalData(null);
+    if (data?.type === 'detail') {
+      return;
+    }
     if (data?.type === 'loka') {
       setCelebratingRow(null);
       setShowLokaDetails(false);
@@ -561,6 +567,50 @@ export default function MobileApp() {
           </div>
         )}
 
+        {modalData && modalData.type === 'detail' && (() => {
+          const sq = squaresData[modalData.num];
+          const detailHtml = squareDetails[modalData.num];
+          return (
+            <div className="fixed inset-0 z-[65] flex items-center justify-center p-4 bg-blue-950/90 backdrop-blur-md">
+              <div className="relative w-full max-w-sm bg-white rounded-[2rem] shadow-2xl border-[3px] border-blue-200 flex flex-col overflow-hidden" style={{ maxHeight: '85vh' }}>
+                <button
+                  onClick={closeModal}
+                  className="absolute top-4 right-4 z-10 p-1.5 rounded-full bg-slate-100 hover:bg-slate-200 active:scale-90 transition-transform"
+                  aria-label="Close"
+                >
+                  <X className="w-4 h-4 text-slate-600" strokeWidth={3} />
+                </button>
+
+                <div className="px-6 pt-6 pb-4 border-b border-slate-100 bg-gradient-to-br from-blue-50 to-white">
+                  <div className="text-[10px] font-black text-blue-600 uppercase tracking-[0.25em]">Square {modalData.num}</div>
+                  <div className="text-3xl font-black text-blue-950 mt-1 leading-tight pr-8">{sq?.name}</div>
+                  <div className="text-sm font-bold text-amber-700 mt-1 uppercase tracking-wide">{sq?.translation}</div>
+                </div>
+
+                <div className="flex-1 overflow-y-auto px-6 py-5">
+                  {detailHtml ? (
+                    <div
+                      className="square-detail-body text-[13px] text-slate-700 leading-relaxed"
+                      dangerouslySetInnerHTML={{ __html: detailHtml }}
+                    />
+                  ) : (
+                    <p className="text-[13px] text-slate-500 italic">No extended commentary available for this square.</p>
+                  )}
+                </div>
+
+                <div className="px-6 pb-5 pt-3 border-t border-slate-100">
+                  <button
+                    onClick={closeModal}
+                    className="w-full py-3.5 bg-blue-800 text-white text-sm font-black rounded-2xl uppercase tracking-widest shadow-xl active:scale-95 transition-transform"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          );
+        })()}
+
         {modalData && modalData.type === 'win' && (
           <div className="fixed inset-0 z-[70] flex items-center justify-center p-5 bg-gradient-to-br from-amber-500 via-orange-600 to-rose-700 overflow-hidden">
             {Array.from({ length: 18 }).map((_, i) => {
@@ -689,17 +739,24 @@ export default function MobileApp() {
       </main>
 
       <footer className="flex-none bg-white border-t-2 border-slate-100 p-4">
-        <div key={`${playerPosition}-${flashing}`} className={`flex items-center gap-4 bg-slate-50 p-3 rounded-2xl border border-slate-200 ${flashing ? 'animate-flash' : ''}`}>
-          <div className="w-10 h-10 bg-blue-950 rounded-xl flex items-center justify-center font-black text-white text-sm shadow-md">
+        <div key={`${playerPosition}-${flashing}`} className={`flex items-center gap-3 bg-slate-50 p-3 rounded-2xl border border-slate-200 ${flashing ? 'animate-flash' : ''}`}>
+          <div className="w-10 h-10 bg-blue-950 rounded-xl flex items-center justify-center font-black text-white text-sm shadow-md flex-none">
             {playerPosition}
           </div>
-          <div className="flex-1 overflow-hidden">
+          <div className="flex-1 overflow-hidden min-w-0">
             <div className="flex items-center gap-2">
               <span className="text-[12px] font-black text-slate-900 uppercase truncate tracking-tight">{currentSq?.name}</span>
               <span className="text-[10px] font-black text-blue-700">{currentSq?.translation}</span>
             </div>
             <p className="text-[10px] text-slate-500 font-bold truncate">{currentSq?.meaning}</p>
           </div>
+          <button
+            onClick={() => setModalData({ type: 'detail', num: playerPosition })}
+            className="flex-none flex items-center gap-1 px-3 py-2 bg-blue-700 text-white text-[10px] font-black rounded-xl uppercase tracking-widest shadow active:scale-95 transition-transform"
+            aria-label="More details about this square"
+          >
+            <Info className="w-3 h-3" strokeWidth={3} /> More
+          </button>
         </div>
       </footer>
     </div>

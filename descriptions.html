@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Game of Self-Inquiry - Text Extract</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #f4f1ea;
+    color: #222;
+    margin: 0;
+    padding: 24px;
+    line-height: 1.5;
+  }
+  header {
+    max-width: 1100px;
+    margin: 0 auto 28px;
+    padding: 20px 24px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  h1 {
+    margin: 0 0 6px;
+    font-size: 28px;
+    color: #2a2a40;
+  }
+  h2.subtitle {
+    margin: 0 0 18px;
+    font-size: 16px;
+    font-weight: normal;
+    color: #555;
+    font-style: italic;
+  }
+  header h3 {
+    margin: 14px 0 6px;
+    font-size: 14px;
+    color: #3a3a55;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  header p {
+    margin: 6px 0;
+    font-size: 14px;
+  }
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .square {
+    background: #fff;
+    border: 1px solid #d9d4c7;
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin-bottom: 14px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  }
+  .square-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #eee;
+  }
+  .num {
+    font-weight: bold;
+    font-size: 22px;
+    color: #8b2e2e;
+    min-width: 40px;
+  }
+  .name {
+    font-weight: bold;
+    font-size: 18px;
+    color: #1a1a3a;
+  }
+  .devanagari {
+    font-size: 20px;
+    color: #6a1b1b;
+    font-weight: normal;
+    margin-left: 6px;
+    font-family: "Noto Sans Devanagari", "Sanskrit 2003", "Mangal", serif;
+  }
+  .body {
+    font-size: 14px;
+    color: #333;
+  }
+  .body b { color: #1a1a3a; }
+  .body em, .body i { color: #555; }
+
+  /* Row-based coloring - left border accent and number color match the row's loka */
+  .square.row-1  { border-left: 6px solid #6b3410; background: #fdf6e9; }  /* Bhu-loka brown */
+  .square.row-2  { border-left: 6px solid #b91c1c; background: #fef2f2; }  /* Bhuva-loka red */
+  .square.row-3  { border-left: 6px solid #c2410c; background: #fff3e6; }  /* Svarga-loka orange */
+  .square.row-4  { border-left: 6px solid #a16207; background: #fffbeb; }  /* Mahaloka yellow */
+  .square.row-5  { border-left: 6px solid #15803d; background: #f0fdf4; }  /* Janaloka green */
+  .square.row-6  { border-left: 6px solid #0e7490; background: #ecfeff; }  /* Tapa-loka teal */
+  .square.row-7  { border-left: 6px solid #1d4ed8; background: #eff6ff; }  /* Satya-loka blue */
+  .square.row-8  { border-left: 6px solid #6b21a8; background: #faf5ff; }  /* Brahman violet */
+
+  .square.row-1 .num { color: #6b3410; }
+  .square.row-2 .num { color: #b91c1c; }
+  .square.row-3 .num { color: #c2410c; }
+  .square.row-4 .num { color: #a16207; }
+  .square.row-5 .num { color: #15803d; }
+  .square.row-6 .num { color: #0e7490; }
+  .square.row-7 .num { color: #1d4ed8; }
+  .square.row-8 .num { color: #6b21a8; }
+
+  /* Row header / divider with loka name */
+  .row-header {
+    max-width: 1100px;
+    margin: 28px auto 14px;
+    padding: 14px 20px;
+    border-radius: 8px;
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  main > .row-header:first-child { margin-top: 0; }
+  .row-header h2 {
+    margin: 0 0 4px;
+    font-size: 22px;
+    font-weight: 600;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .row-header .loka-deva {
+    font-family: "Noto Sans Devanagari", serif;
+    font-size: 22px;
+    font-weight: 500;
+  }
+  .row-header .cells-range {
+    font-size: 14px;
+    font-weight: normal;
+    opacity: 0.9;
+    margin-left: auto;
+  }
+  .row-header p {
+    margin: 0;
+    font-size: 14px;
+    opacity: 0.95;
+    font-style: italic;
+  }
+  .row-header.row-1 { background: linear-gradient(90deg, #6b3410, #8a4a1e); }
+  .row-header.row-2 { background: linear-gradient(90deg, #b91c1c, #dc2626); }
+  .row-header.row-3 { background: linear-gradient(90deg, #c2410c, #ea580c); }
+  .row-header.row-4 { background: linear-gradient(90deg, #a16207, #ca8a04); color: #fff; }
+  .row-header.row-5 { background: linear-gradient(90deg, #15803d, #16a34a); }
+  .row-header.row-6 { background: linear-gradient(90deg, #0e7490, #0891b2); }
+  .row-header.row-7 { background: linear-gradient(90deg, #1d4ed8, #2563eb); }
+  .row-header.row-8 { background: linear-gradient(90deg, #6b21a8, #7e22ce); }
+</style>
+</head>
+<body>
+
+<main>
+
+<div class="row-header row-1">
+  <h2>Row 1: Bhu-loka <span class="loka-deva">भू-लोक</span><span class="cells-range">cells 1-9</span></h2>
+  <p>Physical Plane</p>
+</div>
+
+<div class="square row-1">
+  <div class="square-head"><span class="num">1</span><span class="name">janma</span><span class="devanagari">जन्म</span></div>
+  <div class="body">Birth. <b>Why here?</b> Yet to discover "Me &amp; Brahman are not-two (advaita)". I see myself as a small, separate entity. I'm now bound by <b>Law of karma</b> (cause &amp; effect) and <b>dharma</b> (morality, ethics). Throughout life, my biases overshadow dharma. <b>Eg:</b> Cheats for sake of protecting self-interest. Since every player is reborn with tendencies of 3 (krodha)-6 (moha)</div>
+</div>
+
+<div class="square row-1">
+  <div class="square-head"><span class="num">2</span><span class="name">māyā</span><span class="devanagari">माया</span></div>
+  <div class="body">All knowledge &amp; power in potential. Cause of universe. Manifests individual names &amp; forms (atom, cell, DNA, brain, body, tree, H2O, etc). Hence māyā is also the cause of limitation / ignorance. <b>Eg:</b> You don't have my talent, I don't have yours. Out of the One, many come, thus many are never apart from One. <b>Fell from 55 (aham kāra)?</b> Time for humble reminder: I'm not the boss here. I'm finite entity seeking Lord's grace &amp; help until last breath.</div>
+</div>
+
+<div class="square row-1">
+  <div class="square-head"><span class="num">3</span><span class="name">krodha</span><span class="devanagari">क्रोध</span></div>
+  <div class="body">Anger. Charged emotion arising when things don't match my should's &amp; shouldn'ts. Mind projects biased notion of what a situation means. <b>Solution:</b> Catch yourself, <i>"Would I rather be right OR happy right now? Do I want discord which will cost my intelligence and inner serenity OR learn to relate which will make me wiser in time?"</i>. If give in to anger, then in time leads to 29 (adharma), followed by 35 (nāraka). <b>What is anger &amp; how to manage it?</b></div>
+</div>
+
+<div class="square row-1">
+  <div class="square-head"><span class="num">4</span><span class="name">lobha</span><span class="devanagari">लोभ</span></div>
+  <div class="body"><b>What is Greed? Discuss.</b> <b>Why here?</b> [1] Confusing my unfulfillment or insecurity with presence of material objects. [2] Like a child, yet to realize todays precious toys are tomorrows scrap. Desires are insatiable. [3] Habituated to immediate body-mind gratification. [4] Yet to understand, all that is here is God. Everything belongs to Him alone. Nothing is mine. Not even this body which I arrogantly claim "mine".</div>
+</div>
+
+<div class="square row-1">
+  <div class="square-head"><span class="num">5</span><span class="name">bhu-loka</span><span class="devanagari">भू-लोक</span></div>
+  <div class="body">Physical plane. Noone is absolutely good, nor totally immoral. Every person born is a mixture of both. Upbringing isn't the only influence, there is also past life karma (samskāras). Mind is mainly extroverted, searching experiences "out there" to temporarily relieve oneself from sense of separation &amp; insecurity. Most are C3 employees. Num 5 represents 5 organs of senses/action, 5 elements.</div>
+</div>
+
+<div class="square row-1">
+  <div class="square-head"><span class="num">6</span><span class="name">moha</span><span class="devanagari">मोह</span></div>
+  <div class="body">Delusion. Giving all power away to world objects. Seeing things/people as absolute reality worth living for. Pursing them ongoingly reinforces a binding like-dislike, which makes you invested in the game. Sense of entitlement (mine / my) is seen as "normal". Narcissism (in love with myself). I live to get stuff. <b>Solution:</b> Realize birth is limiting (disease, decay, death). Only born to to end this game of rebirth.</div>
+</div>
+
+<div class="square row-1">
+  <div class="square-head"><span class="num">7</span><span class="name">mada / abhimāna</span><span class="devanagari">मद / अभिमान</span></div>
+  <div class="body">Excessive pride (arrogance). Self intoxication of one's qualities, skills, possessions. <b>Why here?</b> [1] Sense of security placed in things I own. Yes, self-worth is needed, although becomes 7 (mada/abhimāna) when think you've done it all (eg: Rāvana). Fact is, many contributed to your success. [2] Mind soaked up impurities of 24 (kusangati) and became just like them. Happens frequently in work environment.</div>
+</div>
+
+<div class="square row-1">
+  <div class="square-head"><span class="num">8</span><span class="name">mithyā</span><span class="devanagari">मिथ्या</span></div>
+  <div class="body">Dissatisfaction or avarice derived from an insatiable desire for wealth (status, privileges, money). Knows no end. <b>Why here?</b> Entranced by duality. <b>Concludes:</b> I'm a separate being in this vast universe. The more I have, the bigger I am. Takes this empirical world of names-forms as final reality (68 (brahman/īśvara); satyam). Player dislikes those who seem to have more and thrives on comparing self to others, "I'm better, smarter, luckier".</div>
+</div>
+
+<div class="square row-1">
+  <div class="square-head"><span class="num">9</span><span class="name">kāma</span><span class="devanagari">काम</span></div>
+  <div class="body">Any kind of desire or ambition (noble/ignoble). Generates punya (merits) &amp; papa (sins) which keeps the player busy &amp; enmeshed in cycle of life (work, family, goals, money). Produces disappointment when don't get what you want, and fleeting joys. Both compel follow-up actions, creating new punya-papa. Kāma is a <b>catalyst for growth</b> and best friend if guided intelligently by the scriptures.</div>
+</div>
+
+<div class="row-header row-2">
+  <h2>Row 2: Bhuva-loka <span class="loka-deva">भुव-लोक</span><span class="cells-range">cells 10-18</span></h2>
+  <p>Lower Astral Plane (Mind)</p>
+</div>
+
+<div class="square row-2">
+  <div class="square-head"><span class="num">10</span><span class="name">tapah / śuddhi</span><span class="devanagari">तपः / शुद्धि</span></div>
+  <div class="body">Austerity or Discipline. Focuses attention into the processes of the mind, as if your own psychologist. 9 (kāma) extroverted the mind, producing fatigue. Now player is drawn to purification. <b>How to purify a desire ridden mind?</b> Stop exposing the 5 (bhu-loka) senses to things which trigger the desire. Cleanliness. Study the scriptures. Devote results of work to a higher Cause, because all belongs to God (68 (brahman/īśvara)).</div>
+</div>
+
+<div class="square row-2">
+  <div class="square-head"><span class="num">11</span><span class="name">gandharva</span><span class="devanagari">गन्धर्व</span></div>
+  <div class="body">Entertainment. What is common inclination after completing necessary hard work? Celebrate. An outpouring of cheerfulness for having survived the challenges. In same way, work in prior 10 (tapah/śuddhi), tuned mind to become sensitive to subtler realities previously unknown (like falling in love). Player feels lighter after conquering fleeting allurements of 6 (moha)-9 (kāma).</div>
+</div>
+
+<div class="square row-2">
+  <div class="square-head"><span class="num">12</span><span class="name">īrsya</span><span class="devanagari">ईर्ष्या</span></div>
+  <div class="body">Envy occurs when we lack a desired attribute enjoyed by another. It's a reaction of sorrow over an apparent lack which I falsely conclude exists in me. <b>Why here?</b> Insufficient 10 (tapah/śuddhi) rekindles 8 (mithyā). Discuss why. Often causes impatience, intolerance &amp; insensitivity. This snake repeatedly <b>catches most players</b>. Envy is counting another's blessings, instead of your own. <b>Solution</b>, ask: <i>What am I grateful for? What do I have?</i></div>
+</div>
+
+<div class="square row-2">
+  <div class="square-head"><span class="num">13</span><span class="name">antariksa</span><span class="devanagari">अन्तरिक्ष</span></div>
+  <div class="body">Nullity. Unable to make a firm decision. <b>Feeling of stuckness.</b> Sees little meaning or purpose in doing anything. <i>"What's the point!"</i>. Resorts to victimhood or blaming others. <b>Why here?</b> [1] Over stimulated the body-mind in 3 (krodha)-9 (kāma) and 11 (gandharva). This temporarily drains one's lifeforce. [2] Pushed life away in 63 (tamah), thinking 62 (sukha) will last forever. Long as you're alive, action is inescapable. <b>How to get unstuck?</b> Attend to 17 (dayā), 19 (karma-yoga), 20 (dāna).</div>
+</div>
+
+<div class="square row-2">
+  <div class="square-head"><span class="num">14</span><span class="name">bhuva-loka</span><span class="devanagari">भुव-लोक</span></div>
+  <div class="body">Lower astral plane. "Plane" means <b>state of mind</b>. Player is stimulated with possibilities. Starts to think "outside the box". Imagination and creativity blooms. In this stage of maturity, kāma (eat/drink/marry) dominates purpose of being alive. Dwells in fleeting emotions &amp; ideas, thus also unpredictable, ungrounded. Gullible to new opportunities. Day dreams &amp; fantasizes. Catalyst for self discovery &amp; innovation.</div>
+</div>
+
+<div class="square row-2">
+  <div class="square-head"><span class="num">15</span><span class="name">nāga</span><span class="devanagari">नाग</span></div>
+  <div class="body">Fantasy. Player is absorbed in own imagination, which sparked in 14 (bhuva-loka). Mind consumed in thoughts, creating "what if __?" scenarios. No notion is too bizarre. Everything seems possible. This can make player disconnected from reality and socially unrelatable. But positive aspect is all great arts, music, poems &amp; innovations were born from 15 (nāga), backed by reason/logic.</div>
+</div>
+
+<div class="square row-2">
+  <div class="square-head"><span class="num">16</span><span class="name">mātsarya</span><span class="devanagari">मात्सर्य</span></div>
+  <div class="body">Jealousy is a reaction to an imagined threat of losing something <b>already owned</b>. It's passive aggressiveness, which reinforces 29 (adharma). <b>Why here?</b> [1] I see myself a separate entity from others. In reality, even this body isn't mine, let alone objects of enjoyment associated to this body. All belongs to God. [2] Unwise imagination (15 (nāga)) creates fantasy of suspicion &amp; rivalry due to insecurities. [3] Fears abandonment.</div>
+</div>
+
+<div class="square row-2">
+  <div class="square-head"><span class="num">17</span><span class="name">dayā</span><span class="devanagari">दया</span></div>
+  <div class="body">Empathy (mercy) is love in action. It nullifies impulsive need to form conclusions without knowing all the facts. Requires a seasoned intellect (nurtured in 10 (tapah/śuddhi)). <b>Eg:</b> If someone hurts you, don't write them off instantly, because, "I may have also allowed it. So other is not entirely to blame". 17 (dayā) for humanity sweeps egotism aside, removing need to experience other blocks. Discuss why dayā lifts player so high?</div>
+</div>
+
+<div class="square row-2">
+  <div class="square-head"><span class="num">18</span><span class="name">harsa</span><span class="devanagari">हर्ष</span></div>
+  <div class="body">Joy / excitement. Refers to that youthful innocence of "I'm becoming more then thought possible". In Maslow's hierarchy, called self-actualization (meeting one's full potential in life). Challenges &amp; overcoming them fulfills the player. Eagerness to life is precursor to above C3 (karma yoga). <b>Why here?</b> Overcame baggage of 12 (īrsya), 13 (antariksa), 16 (mātsarya). Also byproduct of 15 (nāga), 17 (dayā).</div>
+</div>
+
+<div class="row-header row-3">
+  <h2>Row 3: Svarga-loka <span class="loka-deva">स्वर्ग-लोक</span><span class="cells-range">cells 19-27</span></h2>
+  <p>Heaven / Action Plane</p>
+</div>
+
+<div class="square row-3">
+  <div class="square-head"><span class="num">19</span><span class="name">karma-yoga</span><span class="devanagari">कर्म-योग</span></div>
+  <div class="body">Taking responsibility for actions (karmas). More deliberate and thoughtful. Less impulsive. Player starts to examine own decisions &amp; relationship between present actions &amp; future results (cause &amp; effect). K.Y. definition matures from <i>"I'm doing this for my own good"</i>, to evolved (27 (paramārtha)): <i>I dedicate my actions to a higher altar, God, as nothing here is mine.</i> <b>What is cause-effect?</b> Discuss.</div>
+</div>
+
+<div class="square row-3">
+  <div class="square-head"><span class="num">20</span><span class="name">dāna</span><span class="devanagari">दान</span></div>
+  <div class="body">Anonymous type of charity. It's not coming from motive to show world what a goodie you are. Arises from 17 (dayā). Dāna manages superiority generated in 19 (karma-yoga). Also it's the force behind institutionalized activities for worldly good causes. Relies on socializing. That's why karma-yoga is effective for outgoing, extroverted, active personalities. Can you remember a time of sincere donation? How did you feel contributing?</div>
+</div>
+
+<div class="square row-3">
+  <div class="square-head"><span class="num">21</span><span class="name">prāyaścitta</span><span class="devanagari">प्रायश्चित्त</span></div>
+  <div class="body">Atonement. Admitting mistakes of past actions and willingness to correct them. Player takes voluntary responsibility to correct neglects, immaturity &amp; carelessness. <b>How to repent?</b> Start incorporating 22 (dharma) in actions. <b>Eg:</b> Do I live what I speak? Do I practice what I learn? Are my actions setting an example or reinforcing immorality and division in society. Respond to the troubled person and not their mischievous behavior.</div>
+</div>
+
+<div class="square row-3">
+  <div class="square-head"><span class="num">22</span><span class="name">dharma</span><span class="devanagari">धर्म</span></div>
+  <div class="body">That which is always absolutely <b>right</b> and <b>good</b>. Impure mind distorts definition of "right" to it's favour, then justifies it's immoral deeds. Fact is, morality needs no rationalization. Whereas unethical actions do. <b>How practice?</b> Understand, none can cheat God's laws &amp; orders. <b>Eg:</b> Gravity is law. Ignore it, you fall &amp; suffer. Truth is law. Speak lies, guilt is felt. Non-hurt is inbuilt. Hurt another and I bear fear of being caught. Discuss meaning.</div>
+</div>
+
+<div class="square row-3">
+  <div class="square-head"><span class="num">23</span><span class="name">svarga-loka</span><span class="devanagari">स्वर्ग-लोक</span></div>
+  <div class="body">Heaven. Not eternal as it's bound to time &amp; space. Eventually player returns to earth after merits of 10 (tapah/śuddhi)/22 (dharma) exausted. Experience in heaven is level of thoughts. There are no base desires like sensuality or lust; only enjoyment of being. | This entire 3rd row (C3) is a catalyst for finding your place in the world through doing/actions. See each mistake as a lesson to do better, and you'll eventually reach C4.</div>
+</div>
+
+<div class="square row-3">
+  <div class="square-head"><span class="num">24</span><span class="name">kusangati</span><span class="devanagari">कुसङ्गति</span></div>
+  <div class="body">Adharmic (29 (adharma)) company and friends. Mind is focused on self-profit per subjective likes &amp; dislikes, disregarding future well-being of environment and impact on others. They praise my impurities, since they too are blind to ethics (22 (dharma)). It's how extreme cult groups, dishonest officials and money-makers are made over time. 71 (raja-guna)/72 (tama-guna) dominant. Little 70 (sattva-guna). <b>Discuss</b> consequences of staying too long with bad company.</div>
+</div>
+
+<div class="square row-3">
+  <div class="square-head"><span class="num">25</span><span class="name">susanga</span><span class="devanagari">सुसङ्ग</span></div>
+  <div class="body">Good company. Activity within scope of 19 (karma-yoga)-22 (dharma) is bound to connect you to friends who strive to evolve. Typically called "seekers". Others serve as mirror of positive / negative tendencies, which help loosen rigid identity of yourself. One of fastest ways to mature is to actively associate with like-minded people. <b>Share a story</b> of someone whose association has positively transformed your outlook about life.</div>
+</div>
+
+<div class="square row-3">
+  <div class="square-head"><span class="num">26</span><span class="name">duhkham / cintā</span><span class="devanagari">दुःखम् / चिन्ता</span></div>
+  <div class="body">Experiencing sorrow, concern or overwhelm. <b>Why here?</b> [1] Much activity of C3 produces relationships which can be emotionally taxing [2] Realizes there's more to living then friends, pleasure, money [3] Self glorification lost it's potency from feedbacks given in 25 (susanga). Hence egotism bubble (comfort zone) is starting to burst. Don't resist this transitioning time. Chicken is hatching out of it's shell.</div>
+</div>
+
+<div class="square row-3">
+  <div class="square-head"><span class="num">27</span><span class="name">paramārtha</span><span class="devanagari">परमार्थ</span></div>
+  <div class="body">3 Types of Actions: [1] <b>Selfish:</b> Ignores needs of others. Protects self-interests. [2] <b>Selfless:</b> Always pleasing others, but neglects self. [3] <b>Noble:</b> Takes care of self but also considerate of others welfare. You've taken the hard, yet rewarding path of nobility. To be noble means thinking has shifted from <i>"What can I take?"</i> to <i>"What can I give? How can I serve?"</i>.</div>
+</div>
+
+<div class="row-header row-4">
+  <h2>Row 4: Mahaloka <span class="loka-deva">महलोक</span><span class="cells-range">cells 28-36</span></h2>
+  <p>Balance Plane</p>
+</div>
+
+<div class="square row-4">
+  <div class="square-head"><span class="num">28</span><span class="name">svadharma</span><span class="devanagari">स्वधर्म</span></div>
+  <div class="body">Backed by dharma (22 (dharma)), I respond and address to each situation according to my unique strengths &amp; talents. Player discovers and sticks to <b>own path</b> of evolution and contribution to society, while minimizing 29 (adharma). In C4, one starts to accommodate the Whole more often. Thus learns to be considerate. Rituals lessen because immersed in duty. Until 28 (svadharma), one is mostly a seeker, thus rebellious &amp; doubts freewill.</div>
+</div>
+
+<div class="square row-4">
+  <div class="square-head"><span class="num">29</span><span class="name">adharma</span><span class="devanagari">अधर्म</span></div>
+  <div class="body">Unrighteousness. That which is <b>unjust, deceptive, unfair</b>. Something you wouldn't want done/thought onto you. It's 28 (svadharma) polluted by prejudices/biases, further reinforced by 24 (kusangati). Main concern is own profit-loss. Little regard of future repercussions. <b>Root cause is strong attachment</b> (conclusion that "this" object/belief is my salvation). Based on <b>blind faith</b> (logic &amp; facts colored by assumptions). Guna (70 (sattva-guna)-72 (tama-guna)) imbalance.</div>
+</div>
+
+<div class="square row-4">
+  <div class="square-head"><span class="num">30</span><span class="name">uttamagati</span><span class="devanagari">उत्तमगति</span></div>
+  <div class="body">Morally good tendencies. <b>Why here?</b> You practiced constructive habits, like 10 (tapah/śuddhi), 17 (dayā), 20 (dāna), 21 (prāyaścitta), 25 (susanga), 27 (paramārtha). They endure even under stress. <b>Eg:</b> [1] Think before speak; breaks reaction habit. [2] Alert of breath; gauges anxiety &amp; immoral thoughts. [3] Temporarily pausing (fasting) a food, hobby, routine; avoids addiction which is a precursor to 29 (adharma). [4] Rephrasing in own words what learned helps grasp more.</div>
+</div>
+
+<div class="square row-4">
+  <div class="square-head"><span class="num">31</span><span class="name">yaksa</span><span class="devanagari">यक्ष</span></div>
+  <div class="body">Sanctity or holiness. Quality of emotions and thoughts evolved in 30 (uttamagati). A clean mind often turns it's focus to existence (big picture, origins of life, purpose of human birth, universe). <b>Asks Q's like:</b> What intelligence connects &amp; sustains everything? Like, what keeps earth in orbit around the sun? How did that intelligence manifest? <b>Why here?</b> Combo of 25 (others sparked curiosity), 26 (pain leads to asking), 30 (uttamagati).</div>
+</div>
+
+<div class="square row-4">
+  <div class="square-head"><span class="num">32</span><span class="name">mahaloka</span><span class="devanagari">महलोक</span></div>
+  <div class="body">Balance plane. Thoughts, words &amp; actions are aligned. Head &amp; heart are in balance. Neither dominant. Greater sensitivity to reality, thus more accommodative about differences. Pronounced passions stabilize. Voice is gentler &amp; softer. Some find poetical articulation in C4. Spirituality becomes intimate and relevant. Inspires others. <b>Why are you here?</b> Give reason accounting for previous blocks.</div>
+</div>
+
+<div class="square row-4">
+  <div class="square-head"><span class="num">33</span><span class="name">gandha</span><span class="devanagari">गन्ध</span></div>
+  <div class="body">Fragrance plane. When cleansed of baser thoughts (violence, wanting to be dominated dominating, libido), unpleasant odors in breath, stool, perspiration reduce. Body emits more pleasant smell like sandalwood, lotus. Player is turned off by artificial fragrances. In contrast to C1, smell of paraffin, petrol, cigars, alcohol is enjoyed. Thus one's evolution is reflected even in what is considered pleasant aroma.</div>
+</div>
+
+<div class="square row-4">
+  <div class="square-head"><span class="num">34</span><span class="name">rasa</span><span class="devanagari">रस</span></div>
+  <div class="body">Taste. Player is more sensitive to capturing subtler tastes (music, food, dance, art, poetry), that's often missed by grosser minds. <b>Eg:</b> We visually see rose, but few stop to appreciate it's smell. Even fewer feel petal's soft texture. Hence player's dialog becomes more pleasing to listen, as it brings out the obvious, commonly missed. Perceptive to finer pleasures. Less attracted to extreme spicy, salty, sweet foods.</div>
+</div>
+
+<div class="square row-4">
+  <div class="square-head"><span class="num">35</span><span class="name">nāraka</span><span class="devanagari">नारक</span></div>
+  <div class="body">Hell / Purgatory is not an unpleasant place as depicted in some religious sects. Refers to own suffering due to prolonged past irresponsible, hurtful, unfair actions unto self or others. Does not mean "punishment", but going through hard and long process of purification due to guilt of 29 (adharma). So hell is a tough loving teacher. Other eg's of hell: Seeking validation for self-worth, Victim role, Addiction, Not standing up to abuse.</div>
+</div>
+
+<div class="square row-4">
+  <div class="square-head"><span class="num">36</span><span class="name">svaccha</span><span class="devanagari">स्वच्छ</span></div>
+  <div class="body">Clear thinking. Comes from honesty. Meaning I am transparent and factual about my strengths &amp; weaknesses. <b>Eg:</b> Bland rose among the fresh ones has no need to exaggerate it's colors to appear more striking. It accepts it's present state. <b>Why here?</b> 35 (nāraka) was fierce catalyst of maturing a man (child in adult body) into a Man (28 (svadharma)). I choose to tackle future impurities &amp; resist proliferation of 29 (adharma). It's duty of all to protect 22 (dharma).</div>
+</div>
+
+<div class="row-header row-5">
+  <h2>Row 5: Janaloka <span class="loka-deva">जनलोक</span><span class="cells-range">cells 37-45</span></h2>
+  <p>Wisdom Plane</p>
+</div>
+
+<div class="square row-5">
+  <div class="square-head"><span class="num">37</span><span class="name">jñāna</span><span class="devanagari">ज्ञान</span></div>
+  <div class="body">Self-knowledge is removing false notions about self, universe &amp; God. We start sentences with "I", followed by thought/debate. <b>Eg:</b> <i>"I learn, I enjoy"</i>. But what is the nature of subject "I"? Discovered by <b>śravana:</b> hearing guru, <b>manana:</b> self-inquiry. At first, it's intellectual. In time, converts to direct (45 (suvidyā)). <b>What exactly is learned in 37 (jñāna)?</b> See 56 (om)/64 (prakrti). Also notice, high amount of 36 (svaccha) is needed before mind will be interested in 37 (jñāna).</div>
+</div>
+
+<div class="square row-5">
+  <div class="square-head"><span class="num">38</span><span class="name">prāna</span><span class="devanagari">प्राण</span></div>
+  <div class="body">Intelligence in form of subtle energy sustaining body-mind functions. Just as photosynthesis sustains plants by transforming light to chemical energy. It maintains heartbeat, breathing, digestion, circulation. Also called Qi. Since 37 (jñāna) was skipped, player resorts to "doing actions" which are supposed to heighten sensitivity of mind to realities. One conducts practices like prānāyāma / Yoga.</div>
+</div>
+
+<div class="square row-5">
+  <div class="square-head"><span class="num">39</span><span class="name">apāna</span><span class="devanagari">अपान</span></div>
+  <div class="body">Elimination aspect of prāna (38 (prāna)) in body responsible for downward movement. <b>Eg:</b> urination, defecation, expelling baby, ejaculation, menstruation. When it's weak, body is susceptible to fatigue, mood swings, constipation, diarrhea, menstrual problems, bone density issues. Resides in lower intestines. Player boosts it with methods like mūlabandha (root lock) and kapālabhāti (forceful exhale from abdomen).</div>
+</div>
+
+<div class="square row-5">
+  <div class="square-head"><span class="num">40</span><span class="name">vyāna</span><span class="devanagari">व्यान</span></div>
+  <div class="body">Distribution &amp; circulation aspect of prāna (38 (prāna)), evenly throughout nervous system. <b>Eg:</b> Sweating is not isolated to one specific place, but occurs through all pores of body. Meaning vyāna is pervasive. Imbalances may show as breathlessness (poor O2 delivery from lungs to blood), blocked arteries, edema, heart attack. Improved with breath retention, āyurveda, Hatha Yoga.</div>
+</div>
+
+<div class="square row-5">
+  <div class="square-head"><span class="num">41</span><span class="name">janaloka</span><span class="devanagari">जनलोक</span></div>
+  <div class="body">Wisdom. Player's chief focus is staying aligned with Universal order by <b>immersing oneself in 37 (jñāna)</b>. In C5, some take role of seer, saint, teacher... because urged to share inner profundity. This makes C5 <b>source of most scriptural teachings</b>. Player holds lucid &amp; unbiased vision of human psychology and Whole Reality (56 (om)). Things become more transparent just how toddler's dishonesty is evident to parents.</div>
+</div>
+
+<div class="square row-5">
+  <div class="square-head"><span class="num">42</span><span class="name">agni</span><span class="devanagari">अग्नि</span></div>
+  <div class="body">Refers to: [1] One of 5 elements making up Universe. <b>Eg:</b> Earth began as ball of fire. Sweating is heat. Warmth of family. Desire. Sun (fire) sustains life. [2] Symbol of self (Awareness). Player realizes: I can deceive the world, but never myself, because I am never not present to my thoughts/actions. [3] Speech. <b>Eg:</b> Harsh words burn or hurt. Wise words bring light. Thus player begins to deliberately choose each word.</div>
+</div>
+
+<div class="square row-5">
+  <div class="square-head"><span class="num">43</span><span class="name">manusya</span><span class="devanagari">मनुष्य</span></div>
+  <div class="body">Inauguration of an Evolved Man (thinking being). Most are children in adult bodies with private definition of a "Man". 43 (manusya) is one who makes highest use of freewill: putting God (22 (dharma)) first. He or she cheerfully performs personal &amp; social duties and realizes results are not entirely in own hands, even if do best you can. Shuns pretence and actively analyzes whatever insecurities or emotional roadblocks arise.</div>
+</div>
+
+<div class="square row-5">
+  <div class="square-head"><span class="num">44</span><span class="name">avidyā</span><span class="devanagari">अविद्या</span></div>
+  <div class="body">Ignorance. Without suffice knowledge of reality (37 (jñāna)), old mind narratives persist more or less. They feed fire of 9 (binding desires, "I must!"). This compels player into attending to ongoing worldly affairs. Ignorance is sustained when we don't question our perceptions or thoughts and fail to set boundaries. Otherwise constant distraction. Small things become big. <b>What is ignorance &amp; how to remove it? Discuss.</b></div>
+</div>
+
+<div class="square row-5">
+  <div class="square-head"><span class="num">45</span><span class="name">suvidyā</span><span class="devanagari">सुविद्या</span></div>
+  <div class="body">Direct knowledge that I and Total are not-two. <b>Why here?</b> Serious study &amp; inquiry of 37 (highest teachings of self, world, Brahman within Upanisad texts). Oneness vision is firm &amp; integrated. Moksa is attained. Beginningless 44 (avidyā) is removed pertaining to subject "I". Highest human goal accomplished. No rebirth. <b>What now?</b> Still have a relative life to manage. Thus maintain 60 (subuddhi) until last breath, else risk 72 (tama-guna).</div>
+</div>
+
+<div class="row-header row-6">
+  <h2>Row 6: Tapa-loka <span class="loka-deva">तप-लोक</span><span class="cells-range">cells 46-54</span></h2>
+  <p>Austerity / Purification Plane</p>
+</div>
+
+<div class="square row-6">
+  <div class="square-head"><span class="num">46</span><span class="name">viveka</span><span class="devanagari">विवेक</span></div>
+  <div class="body">Discerning real &amp; unreal, subtle/gross, true/false. To be human is to differentiate THIS from THAT. Also called Objectivity, meaning: not distorting experience with biases, seeing what-is. <b>If not exposed to 37 (jñāna)/45 (suvidyā):</b> viveka depends on conscience (22 (dharma)/43 (manusya)), rational thinking, research. <b>If exposed to 37 (jñāna)/45 (suvidyā):</b> viveka becomes a means of inquiry into nature of "I" through ātmā-anātmā (permanent / changing) discrimination.</div>
+</div>
+
+<div class="square row-6">
+  <div class="square-head"><span class="num">47</span><span class="name">sarasvatī</span><span class="devanagari">सरस्वती</span></div>
+  <div class="body">Neutrality. When player is neutral (Eg: judge or mediator), there is knowledge of pairs of opposites. Intellect is not invested in either side, remaining an observer to this &amp; that. This is wisdom. Thus prayers to sarasvatī are often associated for gaining better learning capacity &amp; wisdom. It also implies balance within oneself <b>Eg:</b> Yin-yang, Idā-pingala in yoga, Left-right brain hemisphere. What is a balanced person?</div>
+</div>
+
+<div class="square row-6">
+  <div class="square-head"><span class="num">48</span><span class="name">yamunā</span><span class="devanagari">यमुना</span></div>
+  <div class="body">Represents the solar (sun) aspect of reality. Which refers to essence of masculinity. Player discovers male aspect within oneself. Extreme 48 (yamunā) is aggression, suffocation. Balanced is protective boundaries, positive expansion, order, simplicity. Induced via right nostril (pingala: source of creative thoughts) in prānāyāma, and needs to be opened for proper meditation. If over identified with 49 (ganga), then 48 (yamunā) serves as balancer.</div>
+</div>
+
+<div class="square row-6">
+  <div class="square-head"><span class="num">49</span><span class="name">ganga</span><span class="devanagari">गङ्गा</span></div>
+  <div class="body">Represents the Lunar (moon) aspect of reality. Referring to essence of femininity. One discovers female aspect within. 49 (ganga) is magnetic while 48 (yamunā) is electric/forceful. Extreme 49 (ganga) is destructive, deceptive. While balanced is nourishing. Makes possible: devotion, poetry, removal of sorrow, receptivity, Induced via left nostril (idā; source of psychic energy, sensitivity) in prānāyāma. Ganga is also symbol of veda-jñāna (flows from top).</div>
+</div>
+
+<div class="square row-6">
+  <div class="square-head"><span class="num">50</span><span class="name">tapa-loka</span><span class="devanagari">तप-लोक</span></div>
+  <div class="body">Purification by putting yourself in environment that reinforces 28 (svadharma), mental cleanliness &amp; sanctity. This is called austerity (self discipline). Prior C5 focus was acquiring 37 (jñāna). C6 focus is <b>integrating 22 (dharma) &amp; 37 (jñāna)</b> by carefully choosing your thoughts, actions. <b>Eg:</b> It's easy to say <i>"There is only God"</i>, but does that vision remain towards politicians &amp; heated confrontations? Your actions always speak louder then your philosophy or words.</div>
+</div>
+
+<div class="square row-6">
+  <div class="square-head"><span class="num">51</span><span class="name">prthivī</span><span class="devanagari">पृथिवी</span></div>
+  <div class="body">Earth is a physical embodiment of highest compassion. One whom all species depend on in past, present and future. Making available resources to all, sustaining all. She doesn't judge low or high cast. Thus player forms fondness to Earth. Meaning, how you relate to Her gives away your connection to God and yourself. <b>Why himsā next?</b> If 22 (dharma) is superficial &amp; sees Earth as mere illusion, may engage in careless actions.</div>
+</div>
+
+<div class="square row-6">
+  <div class="square-head"><span class="num">52</span><span class="name">himsā</span><span class="devanagari">हिंसा</span></div>
+  <div class="body">Justified hurting. Even after so much growth, one may still exhibit irresponsibility or unfairness. <b>Why?</b> [1] Justifies, <i>"World is an illusion. Nobody gets hurt!"</i>. Biased 37 (jñāna), 46 (viveka), 60 (subuddhi). [2] Justifies <i>"You're a danger to self and others if don't believe what I believe. Hence I must convert, change or kill you for your own good!"</i>. Cause of jihād (holy wars). <b>Discuss</b> reasons why mind engages in unfair, unwise acts? Eg: Distorted 22 (dharma).</div>
+</div>
+
+<div class="square row-6">
+  <div class="square-head"><span class="num">53</span><span class="name">jalam</span><span class="devanagari">जलम्</span></div>
+  <div class="body">Water. Purification practices in 47 (sarasvatī)-50 (tapa-loka) can produce excess heat (arrogance, agitation, belittling others who aren't as pure as you are). To stabilize &amp; integrate the development, one needs cooling water (calm, relaxing activities). 53 (jalam) sticks together forms like cake ingredients or insights. Without it, progress feels impersonal/scattered. Water dissolves many (notions) into One whole (God), which is glory of a bhakta (54 (bhakti)).</div>
+</div>
+
+<div class="square row-6">
+  <div class="square-head"><span class="num">54</span><span class="name">bhakti</span><span class="devanagari">भक्ति</span></div>
+  <div class="body">Devotion. Devotee owns up that all that is here is Īśvara (devotee, devoted &amp; act of devotion). <b>Why here?</b> How do we fall in love? More knowledge we have about the other (which takes time), more our sense of fondness expands. Similarly, more you know about Īśvara (obtained in 37 (jñāna)), more your devotion helplessly deepens. It's a delicate combination developed through all blocks, mostly 22 (dharma), 28 (svadharma), 37 (jñāna), 46 (viveka) &amp; 60 (subuddhi).</div>
+</div>
+
+<div class="row-header row-7">
+  <h2>Row 7: Satya-loka <span class="loka-deva">सत्य-लोक</span><span class="cells-range">cells 55-63</span></h2>
+  <p>Truth Plane</p>
+</div>
+
+<div class="square row-7">
+  <div class="square-head"><span class="num">55</span><span class="name">aham kāra</span><span class="devanagari">अहंकार</span></div>
+  <div class="body">Sense of Individuality. Once upon a time, chair &amp; table debated which is more superior. <i>"I'm practical"</i>, said the chair. <i>"I'm supportive"</i>, table argued. The wise shelf intervened, <i>"Name &amp; form is different. But what does shelf, chair &amp; table depend on? Wood."</i> Similarly the world (which includes me) resolve into One same cause (68 (brahman/īśvara)). Without 54 (bhakti), player neglects this fact, thus strengthens the illusion of ownership, "mine".</div>
+</div>
+
+<div class="square row-7">
+  <div class="square-head"><span class="num">56</span><span class="name">om</span><span class="devanagari">ॐ</span></div>
+  <div class="body">Refers to One Total Reality from two standpoints (also see 64 (prakrti)). <b>1st</b> is Intelligence (Īśvara/Māyā) that manifests, sustains and unmanifests the universe. <b>2nd</b> is Consciousness (brahman) because of which Intelligence can cause the three. <b>Eg:</b> In your body-mind, a cell/thought is yet to be born. It's sustained. Then dissolves. Knowing I and Total are not-two, player simplifies life to chant &amp; reflect on meaning of OM (more in māndūkya upanisad).</div>
+</div>
+
+<div class="square row-7">
+  <div class="square-head"><span class="num">57</span><span class="name">vāyu</span><span class="devanagari">वायु</span></div>
+  <div class="body">Essence of Air. Makes possible breathing &amp; gases moving inside the body. Also enables global climate through wind, cyclones and tornadoes. <b>Why here?</b> Passing through 56 (om), player inquired into significant of OM. Once assimilated, the insights cause upliftment or lightness which are qualities of Air. Thus one enjoys freedom from feeling stuck. <b>Recall a time when you felt stuck. How was it resolved?</b></div>
+</div>
+
+<div class="square row-7">
+  <div class="square-head"><span class="num">58</span><span class="name">tejah</span><span class="devanagari">तेजः</span></div>
+  <div class="body">Essence of fire. Which is to illuminate or "throw light". Meaning player's inclination is to throw light by sharing wisdom. You are like one of few stars in sky who notably stands out amongst many. <b>How got here?</b> Inquiry (56 (om)) leads to inspiration (57 (vāyu)), leads to illumining others (58 (tejah)). <b>Why here?</b> Connected the dots from rigorous scriptural study (37 (jñāna)), introspection &amp; applying the insights to each thought, action and engagement with the world.</div>
+</div>
+
+<div class="square row-7">
+  <div class="square-head"><span class="num">59</span><span class="name">satya-loka</span><span class="devanagari">सत्य-लोक</span></div>
+  <div class="body">Taking a stand in Truth. Only possible when learned to manage your thoughts &amp; emotions. Else prejudices will insist opposite to what you know is Good. Meaning, I am earning honestly, my emotions are kept in check, I am contributing to society (28 (svadharma)), my life is organized (19 (karma-yoga)). Has a mentor/guru. Hence in C7, living and thinking 22 (dharma) is natural. If don't continue 59 (satya-loka)/60 (subuddhi), three more snakes can cause regression.</div>
+</div>
+
+<div class="square row-7">
+  <div class="square-head"><span class="num">60</span><span class="name">subuddhi</span><span class="devanagari">सुबुद्धि</span></div>
+  <div class="body">Clear intellect. Meaning I recognize my role and relationship to Lord and world. My existence is not insignificant. I have much to contribute. <b>What imparts 60 (subuddhi)?</b> Nididhyāsana (contemplation). Living a thoughtful, disciplined and managed life. Combo of 22 (dharma), 28 (svadharma), 37 (jñāna), 46 (viveka). <b>How long?</b> Last breath, because small fire of samskāra (habit in potential) can turn into conflagration. Hence three more snakes to overcome: 61 (durbuddhi), 63 (tamah), 72 (tama-guna).</div>
+</div>
+
+<div class="square row-7">
+  <div class="square-head"><span class="num">61</span><span class="name">durbuddhi</span><span class="devanagari">दुर्बुद्धि</span></div>
+  <div class="body">Clouded thinking &amp; cognition. <b>Why here?</b> [1] Underestimated value of upholding 36 (svaccha)/60 (subuddhi) daily. When stop feeding mind wisdom, it soon extroverts back to impure worldly affairs. Or it gets bored and defaults to former habits. [2] Spiritual over confidence, <i>"World is ignorant!"</i>. Scorning others induces brain fog. [3] Unrealistic expectations from events or sense of entitlement for "my hard spiritual work". Evokes anger.</div>
+</div>
+
+<div class="square row-7">
+  <div class="square-head"><span class="num">62</span><span class="name">sukha</span><span class="devanagari">सुख</span></div>
+  <div class="body">Satisfaction. <b>Why here?</b> [1] Maintained 60 (subuddhi), especially during hard times [2] You see the world through eyes of wisdom (46 (viveka)), while contently immersed in 28 (svadharma). Meaning mind is less on news &amp; drama [3] Quiet life of devotion or absorption (samādhi). <b>Danger:</b> Spontaneous joy over time can make daily duties seem inferior, which makes player vulnerable to inaction (63 (tamah)). So persist engaging mind through 60 (subuddhi).</div>
+</div>
+
+<div class="square row-7">
+  <div class="square-head"><span class="num">63</span><span class="name">tamah</span><span class="devanagari">तमः</span></div>
+  <div class="body">Inaction / Inertia. <b>Why here?</b> [1] Carelessly gave into 62 (sukha). Consequence is neglect of duties (28 (svadharma)). Causes idling, boredom &amp; loss of motivation to act. It's same reason why drug users life can be ruined. Some totally give into it's pleasure. It's a blackhole. [2] Forgot how quickly mind falls when not-alert. Just as meditator's calmness can slip into sleep, so too can C7 lucidity slip to dullness.</div>
+</div>
+
+<div class="row-header row-8">
+  <h2>Row 8: Brahman / Īśvara <span class="loka-deva">ब्रह्मन् / ईश्वर</span><span class="cells-range">cells 64-72</span></h2>
+  <p>The Absolute / Liberation</p>
+</div>
+
+<div class="square row-8">
+  <div class="square-head"><span class="num">64</span><span class="name">prakrti</span><span class="devanagari">प्रकृति</span></div>
+  <div class="body">In BG CH7 (mada/abhimāna), the One non-dual Reality is explained from two standpoints (also see 56 (om)). Parā prakrti is Awareness. Aparā-prakrti is māyā (2 (māyā)), the material &amp; intelligent cause of universe. <b>Analogy:</b> Pāra is like electricity (it enlivens). Aparā is hardware &amp; software. Both make up the whole PC. Understanding these standpoints, one sees deeper into Reality, just as artist sees not only colors, but big picture. 37 (jñāna) is nothing but integrating 64 (prakrti).</div>
+</div>
+
+<div class="square row-8">
+  <div class="square-head"><span class="num">65</span><span class="name">uranta</span><span class="devanagari">उरन्त</span></div>
+  <div class="body">Significantly dissolved the false notion <i>"I am a separate individual with a limited body-mind"</i>. Similar to 45 (suvidyā). <b>Why here?</b> Nature of reality (explained in 64 (prakrti)), is intelligibly assimilated. I recognize the One content (prakrti per 64 (prakrti)) obtains in everything, just as wood alone is in all furniture. Player has reoriented thoughts about self, world and God. Addressed emotional insecurities. <b>Compare intellectual &amp; assimilated knowledge.</b></div>
+</div>
+
+<div class="square row-8">
+  <div class="square-head"><span class="num">66</span><span class="name">ānanda</span><span class="devanagari">आनन्द</span></div>
+  <div class="body">Not emotion, but assimilated knowledge, <i>"Nothing is missing now. I am secure &amp; content with what-is"</i>. <b>Why here?</b> [1] Fruit of passing through 64 (prakrti). [2] 37 (jñāna) helped me understand my identity is other then the 4 sheaths: body (1 (janma)), prāna (38 (prāna)), mind (emotions), intellect (thoughts). Result is ānanda or freedom from identifying with their limitations. <b>Now what?</b> Life goes on as usual but with attitude of 60 (subuddhi) &amp; more cheerfulness.</div>
+</div>
+
+<div class="square row-8">
+  <div class="square-head"><span class="num">67</span><span class="name">śiva</span><span class="devanagari">शिव</span></div>
+  <div class="body">The One Reality called Īśvara (God) from standpoint of destruction (makes change possible). Removes prior moment to give way to the new. Can be understood as time itself. <b>Eg:</b> You're able to read this because of Śiva (time). Without it, ridding of impurities and growth is impossible. <b>Eg: What removes ignorance?</b> Knowledge (37 (jñāna)/45 (suvidyā)). Thus to be rid of mind's impurities is to be blessed by Lord Śiva. It's symbolic in scriptures.</div>
+</div>
+
+<div class="square row-8">
+  <div class="square-head"><span class="num">68</span><span class="name">brahman / īśvara</span><span class="devanagari">ब्रह्मन् / ईश्वर</span></div>
+  <div class="body">That which is eternally existing (sat), Awareful (cit) and limitless-complete. Self (ātmā).
+  <br><br>
+  <b>FINISHED THE GAME?</b> I am here because of intelligently navigating all blocks (mostly 19 (karma-yoga), 37 (jñāna), 54 (bhakti), 60 (subuddhi)). This is moksa, freedom &amp; clarity while living. End of future births. Accomplished through guru-śisya relationship.</div>
+</div>
+
+<div class="square row-8">
+  <div class="square-head"><span class="num">69</span><span class="name">brahmā</span><span class="devanagari">ब्रह्मा</span></div>
+  <div class="body">Refers to Īśvara from standpoint of Intelligent Creator as all-knowledge. <b>Eg:</b> You are an intelligent creator while crafting art, code, music, poetry. Only difference is human has limited knowledge, while Brahmā limitless. <b>Why here?</b> Earnest self-growth and willingness to attend to every aspect of life, has paid off. You're blessed with a guru (teacher) who'll deliver brahmavidyā (self-knowledge), which removes false identity of "I".</div>
+</div>
+
+<div class="square row-8">
+  <div class="square-head"><span class="num">70</span><span class="name">sattva-guna</span><span class="devanagari">सत्त्व-गुण</span></div>
+  <div class="body">For context, Īśvara has three powers. 70 (sattva-guna) is all-knowledge. <b>Eg:</b> Water is made of H²O¹. If it was 1 part more/less on either side, it wouldn't be water. So what dictates this exact ratio? <b>70 (sattva-guna).</b> What determines milk-teeth will fall out age 5-6? <b>70 (sattva-guna).</b> It's done for you. Sattvic dominant mind is peaceful, happy &amp; lucid. <b>Why here?</b> Living calmly, engrossed in sādhana. Mind is now most qualified for 37 (jñāna) which leads to 45 (suvidyā)/68 (brahman/īśvara).</div>
+</div>
+
+<div class="square row-8">
+  <div class="square-head"><span class="num">71</span><span class="name">raja-guna</span><span class="devanagari">रज-गुण</span></div>
+  <div class="body">To create anything, must have 3 factors: [1] Knowledge (of house; 70 (sattva-guna)). [2] Material (wood; 72 (tama-guna)). [3] Labor (energy; 71 (raja-guna)). Hence 71 (raja-guna) is power that puts-together knowledge &amp; material. Needed to stay alert. In excess, it's felt as agitation, insistent inner dialogue, immoderate passion. <b>Why here?</b> Don't value enough 68 (brahman/īśvara) goal. Hence got preoccupied with daily activities &amp; ambitions.</div>
+</div>
+
+<div class="square row-8">
+  <div class="square-head"><span class="num">72</span><span class="name">tama-guna</span><span class="devanagari">तम-गुण</span></div>
+  <div class="body">Material from which entire universe is made, including atoms/particles, and subtle matter like prāna, emotions, thoughts. It's also veiling aspect of māyā (2 (māyā)). <b>Eg:</b> 72 (tama-guna) puts whole world to sleep every night (total ignorance). So it's needed for sleep/relaxing. In excess causes: [1] Negligences. Making unintentional mistakes. [2] Fatigue. Unwillingness to act. <b>Continue counting dice from 51 (prthivī)...</b></div>
+</div>
+
+</main>
+
+</body>
+</html>

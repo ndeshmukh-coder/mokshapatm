@@ -12,6 +12,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.square-detail-body b { color: #1e3a8a; font-weight: 800; }
+.square-detail-body i { color: #475569; }
+.square-detail-body { word-break: break-word; }
+
 @keyframes flash-attention {
   0%, 100% { background-color: #f8fafc; }
   50%      { background-color: #fde68a; }
