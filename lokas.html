@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Eight Lokas - A Summary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  :root {
+    --c-bhu:    #6b3410;
+    --c-bhuva:  #b91c1c;
+    --c-svarga: #c2410c;
+    --c-maha:   #b8860b;
+    --c-jana:   #15803d;
+    --c-tapa:   #1d4ed8;
+    --c-satya:  #4338ca;
+    --c-brahman:#7c3aed;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #f4f1ea;
+    color: #222;
+    margin: 0;
+    padding: 24px;
+    line-height: 1.6;
+  }
+  .page-head {
+    max-width: 1100px;
+    margin: 0 auto 28px;
+    padding: 20px 4px;
+  }
+  .page-head h1 {
+    margin: 0 0 6px;
+    font-size: 30px;
+    color: #2a2a40;
+  }
+  .page-head p.subtitle {
+    margin: 0;
+    color: #555;
+    font-style: italic;
+    font-size: 16px;
+  }
+  .loka {
+    max-width: 1100px;
+    margin: 0 auto 22px;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    border: 1px solid #e6e0d2;
+  }
+  .loka-head {
+    padding: 16px 22px;
+    color: #fff;
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .loka-head .num {
+    font-size: 28px;
+    font-weight: 700;
+    opacity: 0.85;
+  }
+  .loka-head h2 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 600;
+  }
+  .loka-head .deva {
+    font-family: "Noto Sans Devanagari", serif;
+    font-size: 24px;
+    opacity: 0.92;
+  }
+  .loka-head .cells {
+    margin-left: auto;
+    font-size: 14px;
+    opacity: 0.9;
+    background: rgba(255,255,255,0.18);
+    padding: 4px 10px;
+    border-radius: 12px;
+  }
+  .loka-body { padding: 18px 22px; }
+  .essence {
+    font-size: 16px;
+    margin: 0 0 14px;
+    color: #2a2a40;
+  }
+  .essence b { font-weight: 600; }
+  .section { margin-top: 14px; }
+  .section h3 {
+    margin: 0 0 6px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #555;
+  }
+  .section p { margin: 0; font-size: 15px; }
+  .key-cells {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 6px;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 14px;
+    font-size: 13px;
+    background: #f4f1ea;
+    border: 1px solid #e0dac8;
+  }
+  .chip .n {
+    font-weight: 700;
+    font-size: 12px;
+    opacity: 0.7;
+  }
+  .virtues { color: #15803d; font-style: italic; }
+  .vices   { color: #b91c1c; font-style: italic; }
+
+  .l-bhu     .loka-head { background: linear-gradient(90deg, var(--c-bhu),     #8a4a1e); }
+  .l-bhuva   .loka-head { background: linear-gradient(90deg, var(--c-bhuva),   #dc2626); }
+  .l-svarga  .loka-head { background: linear-gradient(90deg, var(--c-svarga),  #ea580c); }
+  .l-maha    .loka-head { background: linear-gradient(90deg, var(--c-maha),    #d4a017); }
+  .l-jana    .loka-head { background: linear-gradient(90deg, var(--c-jana),    #16a34a); }
+  .l-tapa    .loka-head { background: linear-gradient(90deg, var(--c-tapa),    #2563eb); }
+  .l-satya   .loka-head { background: linear-gradient(90deg, var(--c-satya),   #4f46e5); }
+  .l-brahman .loka-head { background: linear-gradient(90deg, var(--c-brahman), #8b5cf6); }
+
+  .l-bhu     { border-top: 4px solid var(--c-bhu); }
+  .l-bhuva   { border-top: 4px solid var(--c-bhuva); }
+  .l-svarga  { border-top: 4px solid var(--c-svarga); }
+  .l-maha    { border-top: 4px solid var(--c-maha); }
+  .l-jana    { border-top: 4px solid var(--c-jana); }
+  .l-tapa    { border-top: 4px solid var(--c-tapa); }
+  .l-satya   { border-top: 4px solid var(--c-satya); }
+  .l-brahman { border-top: 4px solid var(--c-brahman); }
+
+  .arc {
+    max-width: 1100px;
+    margin: 28px auto 12px;
+    padding: 18px 22px;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e6e0d2;
+  }
+  .arc h2 { margin: 0 0 8px; font-size: 18px; color: #2a2a40; }
+  .arc p { margin: 6px 0; font-size: 14px; }
+  .ladder {
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .ladder .step {
+    flex: 1 1 110px;
+    padding: 10px 8px;
+    border-radius: 8px;
+    color: #fff;
+    text-align: center;
+    font-size: 13px;
+  }
+  .ladder .step .lk-num { display: block; font-size: 11px; opacity: 0.85; margin-bottom: 2px; }
+  .ladder .step .lk-name { font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="page-head">
+  <h1>The Eight Lokas</h1>
+  <p class="subtitle">A summary of the eight realms in the Game of Self-Inquiry</p>
+</div>
+
+<div class="loka l-bhu">
+  <div class="loka-head">
+    <span class="num">01</span>
+    <h2>Bhu-loka</h2>
+    <span class="deva">भू-लोक</span>
+    <span class="cells">cells 1-9</span>
+  </div>
+  <div class="loka-body">
+    <p class="essence">The physical plane. The player begins here bound by <b>kāma</b> (desire) and the law of karma, unaware that "I and Brahman are not-two". Mind is identified with the body and its appetites; cell 5 itself is named <b>bhu-loka</b>, the physical realm.</p>
+
+    <div class="section">
+      <h3>Theme</h3>
+      <p>Bondage. The basic emotional drives - anger, greed, delusion, pride, dissatisfaction, lust - run the show. Every choice here pulls the player either toward purification or deeper into the cycle.</p>
+    </div>
+
+    <div class="section">
+      <h3>Key cells</h3>
+      <div class="key-cells">
+        <span class="chip"><span class="n">1</span>janma <span class="vices">birth</span></span>
+        <span class="chip"><span class="n">2</span>māyā</span>
+        <span class="chip"><span class="n">3</span>krodha <span class="vices">anger</span></span>
+        <span class="chip"><span class="n">4</span>lobha <span class="vices">greed</span></span>
+        <span class="chip"><span class="n">5</span>bhu-loka</span>
+        <span class="chip"><span class="n">6</span>moha <span class="vices">delusion</span></span>
+        <span class="chip"><span class="n">7</span>mada <span class="vices">pride</span></span>
+        <span class="chip"><span class="n">8</span>mithyā <span class="vices">avarice</span></span>
+        <span class="chip"><span class="n">9</span>kāma <span class="vices">desire</span></span>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>Way out</h3>
+      <p>Catalyzed by suffering. <b>Kāma</b> (cell 9) is both trap and best friend - when guided by the scriptures, desire becomes the engine of growth that propels the player into the next loka.</p>
+    </div>
+  </div>
+</div>
+
+<div class="loka l-bhuva">
+  <div class="loka-head">
+    <span class="num">02</span>
+    <h2>Bhuva-loka</h2>
+    <span class="deva">भुव-लोक</span>
+    <span class="cells">cells 10-18</span>
+  </div>
+  <div class="loka-body">
+    <p class="essence">The lower astral plane. Player begins <b>tapas</b> (discipline) and <b>śuddhi</b> (purification). The mind starts watching itself. Imagination, fantasy and the emotional roller-coaster of <b>bhuva-loka</b> (cell 14) take over the inner life.</p>
+
+    <div class="section">
+      <h3>Theme</h3>
+      <p>Self-observation. Joy and envy, fantasy and stuckness, jealousy and empathy all live side by side. Player swings between expansion and contraction, but the seed of <b>dayā</b> (empathy, cell 17) is the great elevator out of this row.</p>
+    </div>
+
+    <div class="section">
+      <h3>Key cells</h3>
+      <div class="key-cells">
+        <span class="chip"><span class="n">10</span>tapah/śuddhi <span class="virtues">discipline</span></span>
+        <span class="chip"><span class="n">11</span>gandharva</span>
+        <span class="chip"><span class="n">12</span>īrsya <span class="vices">envy</span></span>
+        <span class="chip"><span class="n">13</span>antariksa <span class="vices">stuckness</span></span>
+        <span class="chip"><span class="n">14</span>bhuva-loka</span>
+        <span class="chip"><span class="n">15</span>nāga <span class="vices">fantasy</span></span>
+        <span class="chip"><span class="n">16</span>mātsarya <span class="vices">jealousy</span></span>
+        <span class="chip"><span class="n">17</span>dayā <span class="virtues">empathy</span></span>
+        <span class="chip"><span class="n">18</span>harsa <span class="virtues">joy</span></span>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>Way out</h3>
+      <p>Empathy (17) is the single most powerful ladder on this row. It sweeps egotism aside and lifts the player past many traps. Joy (18) is the byproduct.</p>
+    </div>
+  </div>
+</div>
+
+<div class="loka l-svarga">
+  <div class="loka-head">
+    <span class="num">03</span>
+    <h2>Svarga-loka</h2>
+    <span class="deva">स्वर्ग-लोक</span>
+    <span class="cells">cells 19-27</span>
+  </div>
+  <div class="loka-body">
+    <p class="essence">The heaven of action. The realm of <b>karma-yoga</b> - finding one's place in the world through doing. Action becomes deliberate, charitable, atoning, dharmic. The player learns that "results are not entirely in my hands" and that nobility means asking "What can I give?"</p>
+
+    <div class="section">
+      <h3>Theme</h3>
+      <p>Right action. Heaven (svarga-loka, cell 23) is here, but it's bound by time. The whole row teaches that mistakes are lessons. <b>Susanga</b> (good company) lifts; <b>kusangati</b> (bad company) drops.</p>
+    </div>
+
+    <div class="section">
+      <h3>Key cells</h3>
+      <div class="key-cells">
+        <span class="chip"><span class="n">19</span>karma-yoga <span class="virtues">responsibility</span></span>
+        <span class="chip"><span class="n">20</span>dāna <span class="virtues">charity</span></span>
+        <span class="chip"><span class="n">21</span>prāyaścitta <span class="virtues">atonement</span></span>
+        <span class="chip"><span class="n">22</span>dharma <span class="virtues">righteousness</span></span>
+        <span class="chip"><span class="n">23</span>svarga-loka <span class="virtues">heaven</span></span>
+        <span class="chip"><span class="n">24</span>kusangati <span class="vices">bad company</span></span>
+        <span class="chip"><span class="n">25</span>susanga <span class="virtues">good company</span></span>
+        <span class="chip"><span class="n">26</span>duhkham <span class="vices">sorrow</span></span>
+        <span class="chip"><span class="n">27</span>paramārtha <span class="virtues">nobility</span></span>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>Way out</h3>
+      <p>Dharma (22) plus good company (25) plus the shift from "what can I take?" to "what can I give?" (27).</p>
+    </div>
+  </div>
+</div>
+
+<div class="loka l-maha">
+  <div class="loka-head">
+    <span class="num">04</span>
+    <h2>Mahaloka</h2>
+    <span class="deva">महलोक</span>
+    <span class="cells">cells 28-36</span>
+  </div>
+  <div class="loka-body">
+    <p class="essence">The plane of balance. <b>Svadharma</b> (one's own path) is found. The player responds to each situation from unique strengths, not from biases. Head and heart align; <b>mahaloka</b> (cell 32) is itself named the balance plane.</p>
+
+    <div class="section">
+      <h3>Theme</h3>
+      <p>Maturation. The senses themselves refine - taste, fragrance, even the texture of perception becomes subtler. The contrast: <b>adharma</b> and <b>nāraka</b> (hell as purification) still lurk for the player who slips. Honesty (svaccha, 36) is the foundation of everything above.</p>
+    </div>
+
+    <div class="section">
+      <h3>Key cells</h3>
+      <div class="key-cells">
+        <span class="chip"><span class="n">28</span>svadharma <span class="virtues">own path</span></span>
+        <span class="chip"><span class="n">29</span>adharma <span class="vices">unrighteousness</span></span>
+        <span class="chip"><span class="n">30</span>uttamagati <span class="virtues">good tendencies</span></span>
+        <span class="chip"><span class="n">31</span>yaksa <span class="virtues">sanctity</span></span>
+        <span class="chip"><span class="n">32</span>mahaloka <span class="virtues">balance</span></span>
+        <span class="chip"><span class="n">33</span>gandha</span>
+        <span class="chip"><span class="n">34</span>rasa</span>
+        <span class="chip"><span class="n">35</span>nāraka <span class="vices">hell</span></span>
+        <span class="chip"><span class="n">36</span>svaccha <span class="virtues">clear thinking</span></span>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>Way out</h3>
+      <p>Honesty (36) about one's own strengths and weaknesses opens the door to real <b>jñāna</b> (self-knowledge) in the next loka.</p>
+    </div>
+  </div>
+</div>
+
+<div class="loka l-jana">
+  <div class="loka-head">
+    <span class="num">05</span>
+    <h2>Janaloka</h2>
+    <span class="deva">जनलोक</span>
+    <span class="cells">cells 37-45</span>
+  </div>
+  <div class="loka-body">
+    <p class="essence">The wisdom realm. <b>Jñāna</b> (self-knowledge) begins. Player no longer just does - they study, inquire, listen to a teacher, contemplate. The five prāṇas (subtle energies) are understood as the body's intelligence. <b>Janaloka</b> (cell 41) is named the wisdom plane.</p>
+
+    <div class="section">
+      <h3>Theme</h3>
+      <p>From doing to knowing. This row is the source of most scriptural teachings. Without <b>jñāna</b> (37), the player falls into <b>avidyā</b> (ignorance, 44). With it, they attain <b>suvidyā</b> (direct knowledge, 45) - one of the game's liberation points.</p>
+    </div>
+
+    <div class="section">
+      <h3>Key cells</h3>
+      <div class="key-cells">
+        <span class="chip"><span class="n">37</span>jñāna <span class="virtues">self-knowledge</span></span>
+        <span class="chip"><span class="n">38</span>prāna</span>
+        <span class="chip"><span class="n">39</span>apāna</span>
+        <span class="chip"><span class="n">40</span>vyāna</span>
+        <span class="chip"><span class="n">41</span>janaloka <span class="virtues">wisdom</span></span>
+        <span class="chip"><span class="n">42</span>agni</span>
+        <span class="chip"><span class="n">43</span>manusya <span class="virtues">evolved being</span></span>
+        <span class="chip"><span class="n">44</span>avidyā <span class="vices">ignorance</span></span>
+        <span class="chip"><span class="n">45</span>suvidyā <span class="virtues">moksha</span></span>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>Way out</h3>
+      <p>Sustained study of self, world and Brahman (37). Reaching 45 (suvidyā) means moksha is attained - the highest human goal accomplished.</p>
+    </div>
+  </div>
+</div>
+
+<div class="loka l-tapa">
+  <div class="loka-head">
+    <span class="num">06</span>
+    <h2>Tapa-loka</h2>
+    <span class="deva">तप-लोक</span>
+    <span class="cells">cells 46-54</span>
+  </div>
+  <div class="loka-body">
+    <p class="essence">The purification realm. Knowledge from Janaloka is fused with action through <b>viveka</b> (discernment), <b>tapa-loka</b> (cell 50, austerity itself), and finally <b>bhakti</b> (devotion). Sacred archetypes appear: Sarasvati, Yamuna, Ganga.</p>
+
+    <div class="section">
+      <h3>Theme</h3>
+      <p>Living the truth one knows. It's easy to say "there is only God" - this row asks whether that vision holds up in heated arguments and difficult relationships. Bhakti (54) is the natural flowering when knowledge of Īśvara matures into love.</p>
+    </div>
+
+    <div class="section">
+      <h3>Key cells</h3>
+      <div class="key-cells">
+        <span class="chip"><span class="n">46</span>viveka <span class="virtues">discernment</span></span>
+        <span class="chip"><span class="n">47</span>sarasvatī <span class="virtues">neutrality</span></span>
+        <span class="chip"><span class="n">48</span>yamunā</span>
+        <span class="chip"><span class="n">49</span>ganga</span>
+        <span class="chip"><span class="n">50</span>tapa-loka <span class="virtues">purification</span></span>
+        <span class="chip"><span class="n">51</span>prthivī</span>
+        <span class="chip"><span class="n">52</span>himsā <span class="vices">justified hurt</span></span>
+        <span class="chip"><span class="n">53</span>jalam</span>
+        <span class="chip"><span class="n">54</span>bhakti <span class="virtues">devotion</span></span>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>Way out</h3>
+      <p>Devotion (54) - the recognition that devotee, devoted and act of devotion are all one Īśvara. Another liberation point in the game.</p>
+    </div>
+  </div>
+</div>
+
+<div class="loka l-satya">
+  <div class="loka-head">
+    <span class="num">07</span>
+    <h2>Satya-loka</h2>
+    <span class="deva">सत्य-लोक</span>
+    <span class="cells">cells 55-63</span>
+  </div>
+  <div class="loka-body">
+    <p class="essence">The truth plane. <b>Aham-kāra</b> (sense of individuality) is examined and dissolved. The player chants <b>OM</b>, takes a stand in truth (satya-loka, cell 59), holds <b>subuddhi</b> (clear intellect) through last breath.</p>
+
+    <div class="section">
+      <h3>Theme</h3>
+      <p>Stabilization. Three subtle snakes remain - <b>durbuddhi</b> (clouded thinking, 61), the slip from <b>sukha</b> (62) into <b>tamas</b> (inertia, 63). The lesson of this row: even great clarity needs constant maintenance.</p>
+    </div>
+
+    <div class="section">
+      <h3>Key cells</h3>
+      <div class="key-cells">
+        <span class="chip"><span class="n">55</span>aham kāra</span>
+        <span class="chip"><span class="n">56</span>om <span class="virtues">OM</span></span>
+        <span class="chip"><span class="n">57</span>vāyu</span>
+        <span class="chip"><span class="n">58</span>tejah</span>
+        <span class="chip"><span class="n">59</span>satya-loka <span class="virtues">truth</span></span>
+        <span class="chip"><span class="n">60</span>subuddhi <span class="virtues">clear intellect</span></span>
+        <span class="chip"><span class="n">61</span>durbuddhi <span class="vices">clouded thinking</span></span>
+        <span class="chip"><span class="n">62</span>sukha</span>
+        <span class="chip"><span class="n">63</span>tamah <span class="vices">inertia</span></span>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>Way out</h3>
+      <p><b>Nididhyāsana</b> (contemplation) until the last breath. Sustain 60 (subuddhi) and the small fire of habit cannot become conflagration.</p>
+    </div>
+  </div>
+</div>
+
+<div class="loka l-brahman">
+  <div class="loka-head">
+    <span class="num">08</span>
+    <h2>Brahman-loka</h2>
+    <span class="deva">ब्रह्म-लोक</span>
+    <span class="cells">cells 64-72</span>
+  </div>
+  <div class="loka-body">
+    <p class="essence">The highest realm. The One Reality is seen from every standpoint: <b>prakṛti</b> (substance), <b>śiva</b> (time/destruction), <b>brahmā</b> (creator), <b>brahman</b> (the absolute, also the finishing square at 68). The three <b>guṇas</b> reveal themselves as the universe's powers.</p>
+
+    <div class="section">
+      <h3>Theme</h3>
+      <p>The finish. Cell 68 (brahman) is the destination - eternally existing, awareful, limitless-complete. But even here, the guṇas (sattva, rajas, tamas) can unbalance the player; tama-guna (72) is the last snake that sends them back to count from 51.</p>
+    </div>
+
+    <div class="section">
+      <h3>Key cells</h3>
+      <div class="key-cells">
+        <span class="chip"><span class="n">64</span>prakrti</span>
+        <span class="chip"><span class="n">65</span>uranta <span class="virtues">dissolved ego</span></span>
+        <span class="chip"><span class="n">66</span>ānanda <span class="virtues">bliss</span></span>
+        <span class="chip"><span class="n">67</span>śiva</span>
+        <span class="chip"><span class="n">68</span>brahman <span class="virtues">moksha</span></span>
+        <span class="chip"><span class="n">69</span>brahmā</span>
+        <span class="chip"><span class="n">70</span>sattva-guna <span class="virtues">balance</span></span>
+        <span class="chip"><span class="n">71</span>raja-guna <span class="vices">restlessness</span></span>
+        <span class="chip"><span class="n">72</span>tama-guna <span class="vices">inertia</span></span>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>Way out</h3>
+      <p>Already here. Cell 68 is liberation - freedom and clarity while living, the end of future births, accomplished through the guru-śiṣya relationship.</p>
+    </div>
+  </div>
+</div>
+
+<div class="arc">
+  <h2>The arc, at a glance</h2>
+  <p>The player starts at <b>Bhu-loka</b> bound by desire and ends at <b>Brahma-loka</b> as the absolute. Each loka has a distinct flavor of practice and a distinct snake to watch for. The colors run from earth (brown) up through the rainbow to violet - matching how the board is read from bottom to top.</p>
+  <div class="ladder">
+    <div class="step" style="background:var(--c-bhu)"><span class="lk-num">01 · cells 1-9</span><span class="lk-name">Bhu-loka</span></div>
+    <div class="step" style="background:var(--c-bhuva)"><span class="lk-num">02 · cells 10-18</span><span class="lk-name">Bhuva-loka</span></div>
+    <div class="step" style="background:var(--c-svarga)"><span class="lk-num">03 · cells 19-27</span><span class="lk-name">Svarga-loka</span></div>
+    <div class="step" style="background:var(--c-maha)"><span class="lk-num">04 · cells 28-36</span><span class="lk-name">Mahaloka</span></div>
+    <div class="step" style="background:var(--c-jana)"><span class="lk-num">05 · cells 37-45</span><span class="lk-name">Janaloka</span></div>
+    <div class="step" style="background:var(--c-tapa)"><span class="lk-num">06 · cells 46-54</span><span class="lk-name">Tapa-loka</span></div>
+    <div class="step" style="background:var(--c-satya)"><span class="lk-num">07 · cells 55-63</span><span class="lk-name">Satya-loka</span></div>
+    <div class="step" style="background:var(--c-brahman)"><span class="lk-num">08 · cells 64-72</span><span class="lk-name">Brahman-loka</span></div>
+  </div>
+</div>
+
+</body>
+</html>
