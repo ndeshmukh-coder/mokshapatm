@@ -426,15 +426,31 @@ export default function MobileApp() {
               <Compass className="w-5 h-5" /> THE SPIRITUAL REALMS
             </h3>
             <div className="space-y-4">
-              {lokasData.map(l => (
-                <div key={l.level} className="p-5 bg-white rounded-2xl flex gap-4 items-start border-2 border-slate-100 shadow-sm">
-                  <span className="font-black text-blue-800 text-2xl">0{l.level}</span>
-                  <div>
-                    <div className="text-[11px] font-black text-blue-900 uppercase tracking-wide">{l.name}</div>
-                    <div className="text-[10px] text-slate-600 leading-snug font-medium mt-1">{l.description}</div>
+              {lokasData.map(l => {
+                const palette = {
+                  8: { bg: '#fdf6e9', border: '#78350f', num: '#78350f', name: '#451a03' },
+                  7: { bg: '#fef2f2', border: '#dc2626', num: '#b91c1c', name: '#7f1d1d' },
+                  6: { bg: '#fff7ed', border: '#ea580c', num: '#c2410c', name: '#7c2d12' },
+                  5: { bg: '#fefce8', border: '#ca8a04', num: '#a16207', name: '#713f12' },
+                  4: { bg: '#f0fdf4', border: '#16a34a', num: '#15803d', name: '#14532d' },
+                  3: { bg: '#eff6ff', border: '#2563eb', num: '#1d4ed8', name: '#1e3a8a' },
+                  2: { bg: '#eef2ff', border: '#4f46e5', num: '#4338ca', name: '#312e81' },
+                  1: { bg: '#f5f3ff', border: '#7c3aed', num: '#6d28d9', name: '#4c1d95' },
+                }[l.level];
+                return (
+                  <div
+                    key={l.level}
+                    className="p-5 rounded-2xl flex gap-4 items-start shadow-sm border-l-[6px] border-y-2 border-r-2 border-slate-100"
+                    style={{ backgroundColor: palette.bg, borderLeftColor: palette.border }}
+                  >
+                    <span className="font-black text-2xl" style={{ color: palette.num }}>0{l.level}</span>
+                    <div>
+                      <div className="text-[11px] font-black uppercase tracking-wide" style={{ color: palette.name }}>{l.name}</div>
+                      <div className="text-[10px] text-slate-600 leading-snug font-medium mt-1">{l.description}</div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
             <a
               href="https://www.linkedin.com/in/deshmukh-nitin/"
