@@ -495,9 +495,10 @@ export default function MobileApp() {
               href="https://www.linkedin.com/in/deshmukh-nitin/"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 mb-12 block w-full py-4 px-6 bg-blue-800 text-white text-center text-xs font-black rounded-2xl uppercase tracking-widest shadow-lg active:scale-95 transition-transform"
+              className="mt-6 mb-12 block w-full py-4 px-6 bg-blue-800 text-white text-center rounded-2xl shadow-lg active:scale-95 transition-transform"
             >
-              Author: Nitin T Deshmukh →
+              <span className="block text-[9px] font-bold uppercase tracking-[0.25em] text-blue-200">For feedback contact</span>
+              <span className="block text-xs font-black uppercase tracking-widest mt-0.5">Author: Nitin T Deshmukh →</span>
             </a>
           </div>
         </div>
