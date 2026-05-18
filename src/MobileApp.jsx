@@ -354,10 +354,15 @@ export default function MobileApp() {
   return (
     <div className="fixed inset-0 bg-white flex flex-col font-sans overflow-hidden">
       <header className="flex-none h-14 bg-white border-b-2 border-slate-100 flex items-center justify-between px-4 z-50">
-        <div className="flex items-center gap-2">
+        <a
+          href="https://www.nitidesh.com/mokshapatam/learn-the-game"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 active:opacity-70 transition-opacity"
+        >
           <Star className="w-5 h-5 text-blue-700 fill-current" />
           <span className="font-black text-blue-900 tracking-tighter text-sm italic uppercase">MOKSHA PATAM</span>
-        </div>
+        </a>
         <button onClick={handleReset} className="p-2 text-slate-600 active:scale-90 transition-transform">
           <RotateCcw className="w-5 h-5" />
         </button>
