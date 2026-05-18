@@ -437,12 +437,12 @@ export default function MobileApp() {
               ))}
             </div>
             <a
-              href="https://sites.google.com/view/nitidesh/creations/moksha-patam"
+              href="https://www.linkedin.com/in/deshmukh-nitin/"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-6 mb-12 block w-full py-4 px-6 bg-blue-800 text-white text-center text-xs font-black rounded-2xl uppercase tracking-widest shadow-lg active:scale-95 transition-transform"
             >
-              Learn More About Each Block →
+              Author: Nitin T Deshmukh →
             </a>
           </div>
         </div>
