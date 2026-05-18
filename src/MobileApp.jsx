@@ -428,14 +428,14 @@ export default function MobileApp() {
             <div className="space-y-4">
               {lokasData.map(l => {
                 const palette = {
-                  8: { bg: '#fdf6e9', border: '#78350f', num: '#78350f', name: '#451a03' },
-                  7: { bg: '#f5f3ff', border: '#7c3aed', num: '#6d28d9', name: '#4c1d95' },
-                  6: { bg: '#eef2ff', border: '#4f46e5', num: '#4338ca', name: '#312e81' },
-                  5: { bg: '#eff6ff', border: '#2563eb', num: '#1d4ed8', name: '#1e3a8a' },
-                  4: { bg: '#f0fdf4', border: '#16a34a', num: '#15803d', name: '#14532d' },
-                  3: { bg: '#fefce8', border: '#ca8a04', num: '#a16207', name: '#713f12' },
-                  2: { bg: '#fff7ed', border: '#ea580c', num: '#c2410c', name: '#7c2d12' },
-                  1: { bg: '#fef2f2', border: '#dc2626', num: '#b91c1c', name: '#7f1d1d' },
+                  1: { bg: '#fdf6e9', border: '#78350f', num: '#78350f', name: '#451a03' },
+                  2: { bg: '#fef2f2', border: '#dc2626', num: '#b91c1c', name: '#7f1d1d' },
+                  3: { bg: '#fff7ed', border: '#ea580c', num: '#c2410c', name: '#7c2d12' },
+                  4: { bg: '#fefce8', border: '#ca8a04', num: '#a16207', name: '#713f12' },
+                  5: { bg: '#f0fdf4', border: '#16a34a', num: '#15803d', name: '#14532d' },
+                  6: { bg: '#eff6ff', border: '#2563eb', num: '#1d4ed8', name: '#1e3a8a' },
+                  7: { bg: '#eef2ff', border: '#4f46e5', num: '#4338ca', name: '#312e81' },
+                  8: { bg: '#f5f3ff', border: '#7c3aed', num: '#6d28d9', name: '#4c1d95' },
                 }[l.level];
                 return (
                   <div
