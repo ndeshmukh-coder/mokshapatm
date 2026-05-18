@@ -441,24 +441,26 @@ export default function MobileApp() {
                 return (
                   <div
                     key={l.level}
-                    className="p-5 rounded-2xl flex gap-4 items-start shadow-sm border-l-[6px] border-y-2 border-r-2 border-slate-100"
+                    className="rounded-2xl shadow-sm border-l-[6px] border-y-2 border-r-2 border-slate-100 overflow-hidden"
                     style={{ backgroundColor: palette.bg, borderLeftColor: palette.border }}
                   >
-                    <span className="font-black text-2xl flex-none" style={{ color: palette.num }}>0{l.level}</span>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-baseline gap-2 flex-wrap">
-                        <span className="text-[11px] font-black uppercase tracking-wide" style={{ color: palette.name }}>{l.name}</span>
-                        <span className="text-[9px] font-bold text-slate-400">cells {l.cells}</span>
+                    <div className="p-5 flex gap-4 items-start">
+                      <span className="font-black text-2xl flex-none" style={{ color: palette.num }}>0{l.level}</span>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-baseline gap-2 flex-wrap">
+                          <span className="text-[11px] font-black uppercase tracking-wide" style={{ color: palette.name }}>{l.name}</span>
+                          <span className="text-[9px] font-bold text-slate-400">cells {l.cells}</span>
+                        </div>
+                        <div className="text-[10px] text-slate-600 leading-snug font-medium mt-1">{l.description}</div>
                       </div>
-                      <div className="text-[10px] text-slate-600 leading-snug font-medium mt-1">{l.description}</div>
-                      <button
-                        onClick={() => setModalData({ type: 'lokaDetail', level: l.level })}
-                        className="mt-3 inline-flex items-center gap-1 px-3 py-1.5 text-white text-[9px] font-black rounded-lg uppercase tracking-widest shadow active:scale-95 transition-transform"
-                        style={{ backgroundColor: palette.border }}
-                      >
-                        <BookOpen className="w-3 h-3" strokeWidth={3} /> More
-                      </button>
                     </div>
+                    <button
+                      onClick={() => setModalData({ type: 'lokaDetail', level: l.level })}
+                      className="w-full py-3 px-5 text-white text-[11px] font-black uppercase tracking-widest shadow-inner active:scale-[0.98] transition-transform flex items-center justify-center gap-2"
+                      style={{ backgroundColor: palette.border }}
+                    >
+                      <BookOpen className="w-3.5 h-3.5" strokeWidth={3} /> More about {l.name}
+                    </button>
                   </div>
                 );
               })}
